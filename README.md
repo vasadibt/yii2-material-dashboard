@@ -6,7 +6,7 @@ Yii2-material-dashboard can be installed using composer.
 Run following command to install:
 
 ```bash
-php composer.phar require dektrium/yii2-user
+php composer.phar require vasadibt/yii2-material-dashboard
 ```
 
 ## 2. Configure backend

@@ -1,0 +1,25 @@
+.material-grid-view .table thead tr th {
+    padding: 12px 12px;
+}
+
+.material-grid-view .table thead a.asc,
+.material-grid-view .table thead a.desc {
+    text-decoration: underline;
+    position: relative;
+}
+
+.material-grid-view .table thead a.asc:after,
+.material-grid-view .table thead a.desc:after {
+    position: absolute;
+    display: block;
+    top: -5px;
+    right: -10px;
+}
+
+.material-grid-view .table thead a.asc:after {
+    content: "\2191";
+}
+
+.material-grid-view .table thead a.desc:after {
+    content: "\2193";
+}

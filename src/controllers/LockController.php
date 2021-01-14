@@ -57,7 +57,6 @@ class LockController extends Controller
             return $this->goHome();
         }
 
-        $this->layout = 'base';
         $model = new LockForm($user);
 
         if ($model->load(Yii::$app->request->post()) && $model->unlock()) {

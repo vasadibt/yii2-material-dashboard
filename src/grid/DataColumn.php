@@ -10,6 +10,7 @@ namespace vasadibt\materialdashboard\grid;
 
 use vasadibt\materialdashboard\widgets\BootstrapSelectPicker;
 use Yii;
+use yii\base\InvalidArgumentException;
 use yii\grid\DataColumn as YiiDataColumn;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
@@ -22,11 +23,22 @@ use yii\helpers\ArrayHelper;
  */
 class DataColumn extends YiiDataColumn
 {
+    use ColumnTrait;
+
     /**
      * @var string|array the options/settings for the filter widget. Will be used only if you set `filterType` to a widget
      * classname that exists.
      */
     public $filterWidget = [];
+
+    /**
+     *
+     */
+    public function init()
+    {
+        parent::init();
+        $this->setPageRows();
+    }
 
     /**
      * Renders filter inputs based on the `filterType`
@@ -70,5 +82,22 @@ class DataColumn extends YiiDataColumn
         $widgetOptions = array_replace_recursive($widgetOptions, $defaultOptions);
 
         return $widgetClass::widget($widgetOptions);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function renderDataCellContent($model, $key, $index)
+    {
+        if ($this->content === null) {
+            $value = $this->getDataCellValue($model, $key, $index);
+            if (is_callable($this->format)) {
+                return call_user_func($this->format, $value, $this->grid->formatter, $model, $this);
+            } else {
+                return $this->grid->formatter->format($value, $this->format);
+            }
+
+        }
+        return parent::renderDataCellContent($model, $key, $index);
     }
 }

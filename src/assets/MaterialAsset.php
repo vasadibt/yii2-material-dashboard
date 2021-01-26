@@ -26,5 +26,6 @@ class MaterialAsset extends BaseMaterialAsset
 
     public $depends = [
         \yii\web\YiiAsset::class,
+        \vasadibt\materialdashboard\assets\PerfectScrollbarAsset::class,
     ];
 }

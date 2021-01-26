@@ -17,7 +17,10 @@ class ToggleButton extends InputWidget
      */
     public function run()
     {
-        $input = $this->renderInputHtml('checkbox');
+        $input = $this->hasModel()
+            ? Html::activeCheckbox($this->model, $this->attribute, $this->options)
+            : Html::checkbox($this->name, $this->value, $this->options);
+
         $toggle = Html::tag('span', null, ['class' => 'toggle']);
         $label = Html::tag('label', $input . $toggle);
         return Html::tag('div', $label, ['class' => 'togglebutton']);

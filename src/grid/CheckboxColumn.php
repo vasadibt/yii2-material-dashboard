@@ -10,5 +10,16 @@ use yii\grid\CheckboxColumn as YiiCheckboxColumn;
  */
 class CheckboxColumn extends YiiCheckboxColumn
 {
+    use ColumnTrait;
+
     public $width = '30px';
+
+    /**
+     *
+     */
+    public function init()
+    {
+        parent::init();
+        $this->setPageRows();
+    }
 }

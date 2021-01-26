@@ -28,7 +28,7 @@ use vasadibt\materialdashboard\models\SearchModelInterface;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
-use <?= ltrim($generator->modelClass, '\\') . (isset($modelAlias) ? " as $modelAlias" : "") ?>;
+use <?= ltrim($generator->modelClass, '\\') ?>;
 use yii\web\Request;
 
 /**
@@ -67,7 +67,7 @@ class <?= $searchModelClass ?> extends <?= $modelClass ?> implements SearchModel
      */
     public function search(Request $request): self
     {
-        $query = <?= isset($modelAlias) ? $modelAlias : $modelClass ?>::find();
+        $query = <?= $modelClass ?>::find();
 
         // add conditions that should always apply here
 
@@ -81,7 +81,15 @@ class <?= $searchModelClass ?> extends <?= $modelClass ?> implements SearchModel
             return $this;
         }
 
-        // grid filtering conditions
+        return $this->filterQuery($query);
+    }
+
+    /**
+     * @param ActiveQueryInterface $query
+     * @return $this
+     */
+    public function filterQuery($query): self
+    {
         <?= implode("\n        ", $searchConditions) ?>
 
         return $this;

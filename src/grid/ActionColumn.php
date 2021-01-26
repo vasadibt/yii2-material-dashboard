@@ -18,6 +18,8 @@ use Yii;
  */
 class ActionColumn extends YiiActionColumn
 {
+    use ColumnTrait;
+
     public $template = '<div class="btn-group">{view}{update}{delete}</div>';
     public $contentOptions = ['class' => 'td-actions'];
 
@@ -26,8 +28,9 @@ class ActionColumn extends YiiActionColumn
      */
     public function init()
     {
-        parent::init();
         $this->header = $this->header ?? Yii::t('materialdashboard', 'Actions');
+        parent::init();
+        $this->setPageRows();
     }
 
     /**

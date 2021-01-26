@@ -16,5 +16,16 @@ use yii\grid\SerialColumn as YiiSerialColumn;
  */
 class SerialColumn extends YiiSerialColumn
 {
+    use ColumnTrait;
+
     public $width = '30px';
+
+    /**
+     *
+     */
+    public function init()
+    {
+        parent::init();
+        $this->setPageRows();
+    }
 }

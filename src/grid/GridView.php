@@ -242,4 +242,34 @@ class GridView extends YiiGridView
         }
         return $content;
     }
+
+    /**
+     * Creates column objects and initializes them.
+     */
+    protected function initColumns()
+    {
+        if (empty($this->columns)) {
+            $this->guessColumns();
+        }
+        foreach ($this->columns as $i => $column) {
+            if (is_string($column)) {
+                $column = $this->createDataColumn($column);
+            } else {
+                $column = Yii::createObject(array_merge([
+                    'class' => $this->dataColumnClass,
+                    'grid' => $this,
+                ], $column));
+            }
+
+            if(is_callable($column->visible)){
+                $column->visible = call_user_func($column->visible, $this->dataProvider, $this);
+            }
+
+            if (!$column->visible) {
+                unset($this->columns[$i]);
+                continue;
+            }
+            $this->columns[$i] = $column;
+        }
+    }
 }

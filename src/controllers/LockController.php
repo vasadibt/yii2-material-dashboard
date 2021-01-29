@@ -32,7 +32,6 @@ class LockController extends Controller
                 'rules' => [
                     [
                         'actions' => ['login'],
-                        'roles' => ['?'],
                         'allow' => true,
                     ],
                     [
@@ -52,6 +51,10 @@ class LockController extends Controller
      */
     public function actionLogin()
     {
+        if(!\Yii::$app->user->isGuest){
+            return $this->goHome();
+        }
+
         $user = $this->findLockedUser();
         if ($user === null) {
             return $this->goHome();

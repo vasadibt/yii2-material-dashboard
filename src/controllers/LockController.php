@@ -2,11 +2,11 @@
 
 namespace vasadibt\materialdashboard\controllers;
 
+use vasadibt\materialdashboard\models\ExtendedIdentityInterface;
 use vasadibt\materialdashboard\models\LockForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\IdentityInterface;
 
 /**
  * Class LockController
@@ -51,7 +51,7 @@ class LockController extends Controller
      */
     public function actionLogin()
     {
-        if(!\Yii::$app->user->isGuest){
+        if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
@@ -86,14 +86,16 @@ class LockController extends Controller
     }
 
     /**
-     * @return IdentityInterface|null
+     * @return ExtendedIdentityInterface|null
      */
     public function findLockedUser()
     {
         if ($userId = Yii::$app->session->get(static::LOCK_SESSION_KEY)) {
-            /** @var IdentityInterface $userClass */
+            /** @var ExtendedIdentityInterface $userClass */
             $userClass = Yii::$app->user->identityClass;
-            return $userClass::findIdentity($userId);
+            /** @var ExtendedIdentityInterface $user */
+            $user = $userClass::findIdentity($userId);
+            return $user;
         }
 
         return null;

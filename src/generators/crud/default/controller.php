@@ -66,7 +66,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                     'index' => ['GET'],
                     'create' => ['GET', 'POST'],
                     'update' => ['GET', 'POST'],
-                    'delete' => ['GET'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];

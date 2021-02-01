@@ -43,7 +43,6 @@ class SignInController extends Controller
                 'rules' => [
                     [
                         'actions' => ['login'],
-                        'roles' => ['?'],
                         'allow' => true,
                     ],
                     [

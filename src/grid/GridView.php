@@ -112,14 +112,14 @@ class GridView extends YiiGridView
 
 
         if ($this->itemsPerPage !== false) {
-            $this->itemsPerPage = array_replace_recursive($this->itemsPerPage, [
+            $this->itemsPerPage = array_replace_recursive([
                 'class' => BootstrapSelectPicker::class,
                 'id' => 'items-per-page',
                 'name' => 'per-page',
                 'value' => Yii::$app->request->get('per-page', 20),
                 'items' => [10 => 10, 20 => 20, 50 => 50, 100 => 100],
                 'options' => ['class' => 'float-right items-per-page', 'data-width' => '100px'],
-            ]);
+            ], $this->itemsPerPage);
 
             $this->filterSelector = $this->filterSelector ?? '#' . $this->itemsPerPage['id'];
         }

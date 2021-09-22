@@ -3,8 +3,8 @@
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 
-/* @var $this yii\web\View */
-/* @var $generator yii\gii\generators\crud\Generator */
+/** @var yii\web\View $this */
+/** @var vasadibt\materialdashboard\generators\crud\Generator $generator */
 
 /* @var $model \yii\db\ActiveRecord */
 $model = new $generator->modelClass();
@@ -16,8 +16,8 @@ if (empty($safeAttributes)) {
 echo "<?php\n";
 ?>
 
-use vasadibt\materialdashboard\helpers\Html;
-use vasadibt\materialdashboard\widgets\ActiveForm;
+use <?= $generator->htmlHelperClass ?>;
+use <?= $generator->activeFormClass ?>;
 
 /** @var \yii\web\View $this */
 /** @var \<?= ltrim($generator->modelClass, '\\') ?> $model */

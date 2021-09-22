@@ -3,8 +3,6 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use yii\helpers\Html;
-
 if (!empty($appAssetClass = Yii::$app->material->appAssetClass)) {
     $appAssetClass::register($this);
 }
@@ -17,7 +15,7 @@ if (!empty($appAssetClass = Yii::$app->material->appAssetClass)) {
     <meta charset="<?= Yii::$app->charset ?>">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Yii::$app->material->helperHtml::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>

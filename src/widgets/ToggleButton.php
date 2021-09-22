@@ -2,7 +2,7 @@
 
 namespace vasadibt\materialdashboard\widgets;
 
-use vasadibt\materialdashboard\helpers\Html;
+use Yii;
 use yii\widgets\InputWidget;
 
 /**
@@ -18,11 +18,11 @@ class ToggleButton extends InputWidget
     public function run()
     {
         $input = $this->hasModel()
-            ? Html::activeCheckbox($this->model, $this->attribute, $this->options)
-            : Html::checkbox($this->name, $this->value, $this->options);
+            ? Yii::$app->material->helperHtml::activeCheckbox($this->model, $this->attribute, $this->options)
+            : Yii::$app->material->helperHtml::checkbox($this->name, $this->value, $this->options);
 
-        $toggle = Html::tag('span', null, ['class' => 'toggle']);
-        $label = Html::tag('label', $input . $toggle);
-        return Html::tag('div', $label, ['class' => 'togglebutton']);
+        $toggle = Yii::$app->material->helperHtml::tag('span', null, ['class' => 'toggle']);
+        $label = Yii::$app->material->helperHtml::tag('label', $input . $toggle);
+        return Yii::$app->material->helperHtml::tag('div', $label, ['class' => 'togglebutton']);
     }
 }

@@ -3,14 +3,13 @@
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 
-/* @var $this yii\web\View */
-/* @var $generator yii\gii\generators\crud\Generator */
+/** @var yii\web\View $this */
+/** @var vasadibt\materialdashboard\generators\crud\Generator $generator */
 
 echo "<?php\n";
 ?>
 
-use vasadibt\materialdashboard\grid\Helper;
-use yii\helpers\Html;
+use <?= $generator->htmlHelperClass ?>;
 
 /** @var \yii\web\View $this */
 /** @var \<?= ltrim($generator->modelClass, '\\') ?> $model */

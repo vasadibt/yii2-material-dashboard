@@ -1,7 +1,5 @@
 <?php
 
-use yii\helpers\Html;
-
 /** @var \yii\web\View $this */
 /** @var string $content */
 
@@ -13,7 +11,7 @@ use yii\helpers\Html;
     <meta charset="<?= Yii::$app->charset ?>">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Yii::$app->material->helperHtml::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>

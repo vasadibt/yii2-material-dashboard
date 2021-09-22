@@ -24,6 +24,11 @@ class Generator extends GiiCrudGenerator
      */
     public $messageCategory = 'materialdashboard';
 
+    public $htmlHelperClass = 'vasadibt\materialdashboard\helpers\Html';
+    public $buttonHelperClass = 'vasadibt\materialdashboard\helpers\Button';
+    public $activeFormClass = 'vasadibt\materialdashboard\widgets\ActiveForm';
+    public $gridViewClass = 'vasadibt\materialdashboard\grid\GridView';
+
     /**
      * {@inheritdoc}
      */

@@ -3,7 +3,7 @@
 namespace vasadibt\materialdashboard\widgets;
 
 use vasadibt\materialdashboard\assets\BootstrapSelectPickerAsset;
-use yii\helpers\Html;
+use Yii;
 use yii\helpers\Json;
 use yii\web\JsExpression;
 use yii\widgets\InputWidget;
@@ -39,7 +39,7 @@ class BootstrapSelectPicker extends InputWidget
     {
         parent::init();
 
-        Html::addCssClass($this->options, 'selectpicker');
+        Yii::$app->material->helperHtml::addCssClass($this->options, 'selectpicker');
         $this->options['prompt'] = $this->prompt;
         $this->options['data-style'] = $this->dataStyle;
         $this->options['multiple'] = $this->multiple;
@@ -54,8 +54,8 @@ class BootstrapSelectPicker extends InputWidget
     public function run()
     {
         return $this->hasModel()
-            ? Html::activeDropDownList($this->model, $this->attribute, $this->items, $this->options)
-            : Html::dropDownList($this->name, $this->value, $this->items, $this->options);
+            ? Yii::$app->material->helperHtml::activeDropDownList($this->model, $this->attribute, $this->items, $this->options)
+            : Yii::$app->material->helperHtml::dropDownList($this->name, $this->value, $this->items, $this->options);
     }
 
     /**

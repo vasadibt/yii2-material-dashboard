@@ -1,7 +1,6 @@
 <?php
 
 use vasadibt\materialdashboard\widgets\ActiveForm;
-use vasadibt\materialdashboard\helpers\Html;
 use yii\helpers\Url;
 
 /** @var $this yii\web\View */
@@ -40,8 +39,8 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
                             ->label(false) ?>
 
                         <div class="mt-4 text-center">
-                            <?= Html::a(Yii::t('materialdashboard', 'Change account'), Yii::$app->user->loginUrl, ['class' => 'btn btn-info btn-round']) ?>
-                            <?= Html::submitButton(Yii::t('materialdashboard', 'Login'), ['class' => 'btn btn-primary btn-round']) ?>
+                            <?= Yii::$app->material->helperHtml::a(Yii::t('materialdashboard', 'Change account'), Yii::$app->user->loginUrl, ['class' => 'btn btn-info btn-round']) ?>
+                            <?= Yii::$app->material->helperHtml::submitButton(Yii::t('materialdashboard', 'Login'), ['class' => 'btn btn-primary btn-round']) ?>
                         </div>
                         <?php ActiveForm::end() ?>
                     </div>

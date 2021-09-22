@@ -2,7 +2,6 @@
 
 use vasadibt\materialdashboard\models\LoginForm;
 use vasadibt\materialdashboard\widgets\ActiveForm;
-use vasadibt\materialdashboard\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -28,7 +27,7 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
             <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
                 <div class="card card-login card-hidden">
                     <div class="card-header card-header-info text-center">
-                        <h4 class="card-title"><?= Html::encode($this->title) ?></h4>
+                        <h4 class="card-title"><?= Yii::$app->material->helperHtml::encode($this->title) ?></h4>
                     </div>
                     <div class="card-body">
                         <?php $form = ActiveForm::begin([]) ?>
@@ -42,7 +41,7 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
                             ->prepend(['content' => '<i class="material-icons">lock</i>'])
                             ->label(false) ?>
                         <div class="mt-4 text-center">
-                            <?= Html::submitButton(Yii::t('materialdashboard', 'Sign in'), ['class' => 'btn btn-info']) ?>
+                            <?= Yii::$app->material->helperHtml::submitButton(Yii::t('materialdashboard', 'Sign in'), ['class' => 'btn btn-info']) ?>
                         </div>
                         <?php ActiveForm::end() ?>
                     </div>

@@ -8,6 +8,8 @@
 
 namespace vasadibt\materialdashboard\grid;
 
+use Yii;
+
 /**
  * Class GridView
  * @package vasadibt\materialdashboard\grid
@@ -51,7 +53,7 @@ class GridView extends \kartik\grid\GridView
         $this->toolbar = [
             [
                 'options' => ['class' => 'd-flex justify-content-end'],
-                'content' => Helper::exportButton() . Helper::resetButton()
+                'content' => Yii::$app->material->helperButton::export() . Yii::$app->material->helperButton::reset()
             ],
         ];
 
@@ -65,11 +67,11 @@ class GridView extends \kartik\grid\GridView
         }
 
         if (!isset($this->replaceTags['{pageSizeTop}'])) {
-            $this->replaceTags['{pageSizeTop}'] = Helper::pageSizeSelector($this->filterModel, 'items-per-page-top', $this->pageSizes);
+            $this->replaceTags['{pageSizeTop}'] = Yii::$app->material->helperHtml::pageSizeSelector($this->filterModel, 'items-per-page-top', $this->pageSizes);
         }
 
         if (!isset($this->replaceTags['{pageSizeBottom}'])) {
-            $this->replaceTags['{pageSizeBottom}'] = Helper::pageSizeSelector($this->filterModel, 'items-per-page-bottom', $this->pageSizes);
+            $this->replaceTags['{pageSizeBottom}'] = Yii::$app->material->helperHtml::pageSizeSelector($this->filterModel, 'items-per-page-bottom', $this->pageSizes);
         }
 
         parent::init();

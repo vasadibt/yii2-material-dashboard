@@ -3,8 +3,8 @@
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 
-/* @var $this yii\web\View */
-/* @var $generator yii\gii\generators\crud\Generator */
+/** @var yii\web\View $this */
+/** @var vasadibt\materialdashboard\generators\crud\Generator $generator */
 
 $urlParams = $generator->generateUrlParams();
 $modelClassName = Inflector::camel2words(StringHelper::basename($generator->modelClass));
@@ -19,8 +19,7 @@ if ($generator->enableI18N) {
 echo "<?php\n";
 ?>
 
-use vasadibt\materialdashboard\grid\Helper;
-use yii\helpers\Html;
+use <?= $generator->htmlHelperClass ?>;
 
 /** @var yii\web\View $this */
 /** @var <?= ltrim($generator->modelClass, '\\') ?> $model */

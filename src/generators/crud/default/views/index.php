@@ -3,8 +3,8 @@
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 
-/* @var $this yii\web\View */
-/* @var $generator yii\gii\generators\crud\Generator */
+/** @var yii\web\View $this */
+/** @var vasadibt\materialdashboard\generators\crud\Generator $generator */
 
 $urlParams = $generator->generateUrlParams();
 $nameAttribute = $generator->getNameAttribute();
@@ -12,8 +12,8 @@ $modelName = Inflector::camel2words(StringHelper::basename($generator->modelClas
 echo "<?php\n";
 ?>
 
-use vasadibt\materialdashboard\grid\GridView;
-use yii\helpers\Html;
+use <?= $generator->gridViewClass ?>;
+use <?= $generator->htmlHelperClass ?>;
 
 /** @var \yii\web\View $this */
 /** @var \<?= ltrim($generator->searchModelClass, '\\') ?> $searchModel */

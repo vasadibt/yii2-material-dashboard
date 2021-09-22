@@ -3,7 +3,7 @@
 namespace vasadibt\materialdashboard\widgets;
 
 use vasadibt\materialdashboard\assets\BootstrapTagsInputAsset;
-use yii\helpers\Html;
+use Yii;
 use yii\helpers\Json;
 use yii\web\JsExpression;
 use yii\widgets\InputWidget;
@@ -42,7 +42,7 @@ class TagsInput extends InputWidget
     {
         parent::init();
 
-        Html::addCssClass($this->options, 'tagsinput');
+        Yii::$app->material->helperHtml::addCssClass($this->options, 'tagsinput');
 
         $this->options['data-role'] = 'tagsinput';
         $this->options['data-color'] = $this->color;

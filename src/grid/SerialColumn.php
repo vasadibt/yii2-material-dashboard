@@ -8,21 +8,14 @@
 
 namespace vasadibt\materialdashboard\grid;
 
-use yii\grid\SerialColumn as YiiSerialColumn;
-
 /**
  * Class SerialColumn
  * @package vasadibt\materialdashboard\grid
  */
-class SerialColumn extends YiiSerialColumn
+class SerialColumn extends \kartik\grid\SerialColumn
 {
-    use ColumnTrait;
-
     public $width = '30px';
 
-    /**
-     *
-     */
     public function init()
     {
         parent::init();

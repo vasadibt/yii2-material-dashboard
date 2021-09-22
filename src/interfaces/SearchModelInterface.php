@@ -1,7 +1,7 @@
 <?php
 
 
-namespace vasadibt\materialdashboard\models;
+namespace vasadibt\materialdashboard\interfaces;
 
 
 use yii\data\DataProviderInterface;
@@ -10,7 +10,7 @@ use yii\web\Request;
 
 /**
  * Interface SearchModelInterface
- * @package vasadibt\materialdashboard\models
+ * @package vasadibt\materialdashboard\interfaces
  */
 interface SearchModelInterface
 {

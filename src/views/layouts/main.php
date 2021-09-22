@@ -1,17 +1,17 @@
 <?php
 
-/* @var $this View */
-/* @var $content string */
-
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\Breadcrumbs;
 use yii2mod\notify\BootstrapNotify;
 
-\vasadibt\materialdashboard\assets\MaterialAsset::register($this);
+/* @var $this View */
+/* @var $content string */
 
-// fix crashed design
-Yii::$app->assetManager->getBundle(yii2mod\notify\BootstrapNotifyAsset::class)->depends = [];
+if (!empty($appAssetClass = Yii::$app->material->appAssetClass)) {
+    $appAssetClass::register($this);
+}
+
 
 ?>
 <?php $this->beginPage() ?>

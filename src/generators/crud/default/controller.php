@@ -41,13 +41,16 @@ namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>
 
 use <?= ltrim($generator->modelClass, '\\') ?>;
 use <?= ltrim($generator->searchModelClass, '\\') ?>;
+<?php if(StringHelper::dirname(ltrim($generator->baseControllerClass, '\\')) != StringHelper::dirname(ltrim($generator->controllerClass, '\\'))): ?>
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
+<?php endif ?>
 use Yii;
 use yii\filters\VerbFilter;
+use yii\helpers\Inflector;
 use yii\web\NotFoundHttpException;
 use yii\web\Request;
 use yii\web\Response;
-use vasadibt\materialdashboard\models\SearchModelInterface;
+use yii2tech\spreadsheet\Spreadsheet;
 
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
@@ -67,6 +70,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                     'create' => ['GET', 'POST'],
                     'update' => ['GET', 'POST'],
                     'delete' => ['POST'],
+                    'export' => ['POST'],
                 ],
             ],
         ];
@@ -78,7 +82,6 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionIndex(Request $request)
     {
-        /** @var SearchModelInterface $searchModel */
         $searchModel = (new <?= $searchModelClass ?>())->search($request);
         return $this->render('index', compact('searchModel'));
     }
@@ -96,7 +99,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         $model->loadDefaultValues();
 
         if ($model->load($request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', <?= $generator->generateString('You have successfully created the item!')?>);
+            Yii::$app->session->setFlash('success', 'Sikeresen létrehozta az elemet!');
             return $this->redirect(['update', <?= $urlParams ?>]);
         }
 
@@ -116,7 +119,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         $model = $this->findModel(<?= $actionParams ?>);
 
         if ($model->load($request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', <?= $generator->generateString('You have successfully modified the item!')?>);
+            Yii::$app->session->setFlash('success', 'Sikeresen módosította az elemet!');
             return $this->redirect(['update', <?= $urlParams ?>]);
         }
 
@@ -134,8 +137,29 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     public function actionDelete(<?= $actionParams ?>)
     {
         $this->findModel(<?= $actionParams ?>)->delete();
-        Yii::$app->session->setFlash('success', <?= $generator->generateString('You have successfully removed the item!')?>);
+        Yii::$app->session->setFlash('success', 'Sikeresen eltávolította az elemet!');
         return $this->redirect(['index']);
+    }
+
+    /**
+     * @param Request $request
+     * @return \yii\web\Response
+     */
+    public function actionExport(Request $request)
+    {
+        $searchModel = (new <?= $searchModelClass ?>())->search($request);
+        $searchModel->getDataProvider()->pagination = false;
+
+        $exporter = new Spreadsheet([
+            'dataProvider' => $searchModel->getDataProvider(),
+            'columns' => [
+<?php foreach ($generator->getTableSchema()->columns as $column): ?>
+                ['attribute' => '<?= $column->name ?>'],
+<?php endforeach; ?>
+            ],
+        ]);
+
+        return $exporter->send(sprintf('%s-export_%s.xls', Inflector::slug($searchModel::title()), now()->format('Y_m_d-H_i_s')));
     }
 
     /**
@@ -151,6 +175,6 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             return $model;
         }
 
-        throw new NotFoundHttpException(<?= $generator->generateString('The requested page does not exist.') ?>);
+        throw new NotFoundHttpException('A kért oldal nem létezik.');
     }
 }

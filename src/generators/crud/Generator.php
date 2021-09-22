@@ -11,7 +11,7 @@ use yii\gii\generators\crud\Generator as GiiCrudGenerator;
 
 /**
  * Class Generator
- * @package common\models\generators\crud
+ * @package vasadibt\materialdashboard\generators\crud
  */
 class Generator extends GiiCrudGenerator
 {

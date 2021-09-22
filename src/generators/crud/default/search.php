@@ -22,13 +22,12 @@ echo "<?php\n";
 
 namespace <?= StringHelper::dirname(ltrim($generator->searchModelClass, '\\')) ?>;
 
-<?php if(StringHelper::dirname(ltrim($generator->searchModelClass, '\\')) != 'vasadibt\materialdashboard\models'): ?>
-use vasadibt\materialdashboard\models\SearchModelInterface;
-<?php endif ?>
+use <?= ltrim($generator->modelClass, '\\') ?>;
+use vasadibt\materialdashboard\interfaces\SearchModelInterface;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
-use <?= ltrim($generator->modelClass, '\\') ?>;
+use yii\db\ActiveQueryInterface;
 use yii\web\Request;
 
 /**
@@ -73,6 +72,7 @@ class <?= $searchModelClass ?> extends <?= $modelClass ?> implements SearchModel
 
         $this->dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => $request->get('per-page') == '-' ? false : [],
         ]);
 
         $this->load($request->getQueryParams());

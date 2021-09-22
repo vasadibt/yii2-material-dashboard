@@ -1,7 +1,10 @@
 <?php
-/** @var \yii\web\View $this */
 
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
+
+/** @var \yii\web\View $this */
+
 ?>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
@@ -13,7 +16,15 @@ use yii\helpers\Url;
                     <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
                 </button>
             </div>
-            <a class="navbar-brand" href="<?= Yii::$app->request->url?>"><?= $this->title ?></a>
+
+            <?= Breadcrumbs::widget([
+                'links' => $this->params['breadcrumbs'] ?? [],
+                'tag' => 'div',
+                'itemTemplate' => '<span class="breadcrumb-item">{link}</span>' . "\n",
+                'activeItemTemplate' => '<span class="breadcrumb-item active" aria-current="page">{link}</span>' . "\n",
+                'options' => ['class' => 'breadcrumb d-none d-sm-block']
+            ]); ?>
+
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>

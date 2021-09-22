@@ -1,11 +1,9 @@
 <?php
 
-/* @var $this \yii\web\View */
-/* @var $content string */
-
 use yii\helpers\Html;
 
-\vasadibt\materialdashboard\assets\MaterialAsset::register($this);
+/** @var \yii\web\View $this */
+/** @var string $content */
 
 ?>
 <?php $this->beginPage() ?>

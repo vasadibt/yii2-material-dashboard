@@ -1,83 +1,117 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Vasadi-Balogh Tamás
- * Date: 2018. 02. 28.
- * Time: 9:14
- */
 
 namespace vasadibt\materialdashboard\grid;
 
 use vasadibt\materialdashboard\helpers\Html;
-use yii\grid\ActionColumn as YiiActionColumn;
 use Yii;
+use yii\helpers\ArrayHelper;
 
-/**
- * Class ActionColumn
- * @package vasadibt\materialdashboard\grid
- */
-class ActionColumn extends YiiActionColumn
+class ActionColumn extends \kartik\grid\ActionColumn
 {
-    use ColumnTrait;
-
-    public $template = '<div class="btn-group">{view}{update}{delete}</div>';
+    public $templateContainer = '<div class="btn-group">{template}</div>';
+    public $template = '{delete}{update}';
     public $contentOptions = ['class' => 'td-actions'];
+    public $viewOptions = ['class' => 'btn btn-warning'];
+    public $updateOptions = ['class' => 'btn btn-info'];
+    public $deleteOptions = ['class' => 'btn btn-danger'];
 
     /**
-     *
+     * {@inheritdoc}
      */
-    public function init()
+    protected function renderDataCellContent($model, $key, $index)
     {
-        $this->header = $this->header ?? Yii::t('materialdashboard', 'Actions');
-        parent::init();
-        $this->setPageRows();
+        $template = parent::renderDataCellContent($model, $key, $index);
+
+        if ($this->templateContainer != false) {
+            $template = strtr($this->templateContainer, [
+                "{template}" => $template,
+            ]);
+        }
+
+        return $template;
     }
 
     /**
-     * Initializes the default button rendering callbacks.
+     * @inheritdoc
      */
     protected function initDefaultButtons()
     {
-        $this->initDefaultButton('view', 'visibility', [
-            'class' => 'btn btn-default',
-            'rel'=>'tooltip',
-            'title' => Yii::t('materialdashboard', 'View'),
-            'aria-label' => Yii::t('materialdashboard', 'View'),
-            'data-pjax' => '0',
-        ]);
-        $this->initDefaultButton('update', 'edit', [
-            'class' => 'btn btn-info',
-            'rel'=>'tooltip',
-            'title' => Yii::t('materialdashboard', 'Update'),
-            'aria-label' => Yii::t('materialdashboard', 'Update'),
-            'data-pjax' => '0',
-        ]);
-        $this->initDefaultButton('delete', 'delete', [
-            'class' => 'btn btn-danger',
-            'rel'=>'tooltip',
-            'title' => Yii::t('materialdashboard', 'Delete'),
-            'aria-label' => Yii::t('materialdashboard', 'Delete'),
-            'data-confirm' => Yii::t('materialdashboard', 'Are you sure you want to delete this item?'),
-            'data-method' => 'post',
-            'data-pjax' => '0',
-        ]);
+        $this->setDefaultButton('view', 'Megtekintés', 'visibility');
+        $this->setDefaultButton('update', 'Módosítás', 'edit');
+        $this->setDefaultButton('delete', 'Törlés', 'delete');
     }
 
     /**
-     * Initializes the default button rendering callback for single button.
-     * @param string $name Button name as it's written in template
-     * @param string $iconName The part of Bootstrap glyphicon class that makes it unique
-     * @param array $additionalOptions Array of additional options
-     * @since 2.0.11
+     * Sets a default button configuration based on the button name (bit different than [[initDefaultButton]] method)
+     *
+     * @param string $name button name as written in the [[template]]
+     * @param string $title the title of the button
+     * @param string $icon the meaningful glyphicon suffix name for the button
      */
-    protected function initDefaultButton($name, $iconName, $additionalOptions = [])
+    protected function setDefaultButton($name, $title, $icon)
     {
-        if (!isset($this->buttons[$name]) && strpos($this->template, '{' . $name . '}') !== false) {
-            $this->buttons[$name] = function ($url, $model, $key) use ($name, $iconName, $additionalOptions) {
-                $options = array_merge($additionalOptions, $this->buttonOptions);
-                $icon = Html::tag('i', $iconName, ['class' => 'material-icons']);
-                return Html::a($icon, $url, $options);
-            };
+        if (isset($this->buttons[$name])) {
+            return;
         }
+
+        $this->buttons[$name] = function ($url) use ($name, $title, $icon) {
+            $opts = "{$name}Options";
+            $options = [
+                'title' => $title,
+                'aria-label' => $title,
+                'data-original-title' => $title,
+                'data-pjax' => '0',
+                'rel' => 'tooltip',
+            ];
+
+            if ($name === 'delete') {
+                $item = $this->grid->itemLabelSingle ?? Yii::t('kvgrid', 'item');
+                $options['data-method'] = 'post';
+                $options['data-confirm'] = Yii::t('kvgrid', 'Are you sure to delete this {item}?', ['item' => $item]);
+            }
+            $options = array_replace_recursive($options, $this->buttonOptions, $this->$opts);
+            $label = $this->renderLabel($options, $title, [
+                'class' => 'material-icons',
+                'icon' => $icon,
+                'aria-hidden' => 'true',
+            ]);
+
+            $link = \yii\helpers\Html::a($label, $url, $options);
+
+            if ($this->_isDropdown) {
+                $options['tabindex'] = '-1';
+            }
+
+            return $link;
+        };
+    }
+
+    /**
+     * Renders button icon
+     *
+     * @param array $options HTML attributes for the action button element
+     * @param array $iconOptions HTML attributes for the icon element. The following additional options are recognized:
+     * - `tag`: _string_, the HTML tag to render the icon. Defaults to `span`.
+     *
+     * @return string
+     */
+    protected function renderIcon(&$options, $iconOptions = [])
+    {
+        $icon = ArrayHelper::remove($options, 'icon');
+        if ($icon === false) {
+            return '';
+        }
+
+        if (is_string($icon)) {
+            return $icon;
+        }
+
+        if (is_array($icon)) {
+            $iconOptions = array_replace_recursive($iconOptions, $icon);
+        }
+        $tag = ArrayHelper::remove($iconOptions, 'tag', 'span');
+        $iconType = ArrayHelper::remove($iconOptions, 'icon');
+        return Html::tag($tag, $iconType, $iconOptions);
+
     }
 }

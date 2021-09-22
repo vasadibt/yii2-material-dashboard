@@ -16,8 +16,8 @@ if (empty($safeAttributes)) {
 echo "<?php\n";
 ?>
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use vasadibt\materialdashboard\helpers\Html;
+use vasadibt\materialdashboard\widgets\ActiveForm;
 
 /** @var \yii\web\View $this */
 /** @var \<?= ltrim($generator->modelClass, '\\') ?> $model */
@@ -26,7 +26,19 @@ use yii\widgets\ActiveForm;
 
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
 
-    <?= "<?php " ?>$form = ActiveForm::begin(); ?>
+    <?= "<?php " ?>$form = ActiveForm::begin([
+        'options' => ['class' => 'warn-lose-changes'],
+        'layout' => 'horizontal',
+        'fieldConfig' => [
+            'horizontalCssClasses' => [
+                'label' => 'col-sm-3 col-form-label',
+                'offset' => 'offset-sm-3',
+                'wrapper' => 'col-sm-9',
+                'error' => '',
+                'hint' => '',
+            ],
+        ],
+    ]); ?>
 
 <?php foreach ($generator->getColumnNames() as $attribute): ?>
 <?php if (in_array($attribute, $safeAttributes)): ?>
@@ -35,8 +47,12 @@ use yii\widgets\ActiveForm;
 <?php endforeach; ?>
 
     <div class="form-group">
-        <?= "<?= " ?>Html::submitButton(<?= $generator->generateString('Save') ?>, ['class' => 'btn btn-fill btn-success']) ?>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Back') ?>, ['/' . Yii::$app->controller->uniqueId], ['class' => 'btn btn-fill btn-warning']) ?>
+        <?= "<?= " ?>$model->isNewRecord ? '' : Html::a('Törlés', ['delete', 'id' => $model->primaryKey], [
+            'class' => 'btn btn-danger',
+            'data-confirm' =>  'Biztos törölni szeretnéd ezt a tételt?',
+            'data-method' => 'post',
+        ]) ?>
+        <?= "<?= " ?>Html::submitButton($model->isNewRecord ? 'Létrehozás' : 'Módosítás', ['class' => 'btn btn-fill btn-success pull-right']) ?>
     </div>
 
     <?= "<?php " ?>ActiveForm::end(); ?>

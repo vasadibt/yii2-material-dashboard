@@ -4,6 +4,7 @@ namespace vasadibt\materialdashboard\grid;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 class ActionColumn extends \kartik\grid\ActionColumn
 {
@@ -111,6 +112,26 @@ class ActionColumn extends \kartik\grid\ActionColumn
         $tag = ArrayHelper::remove($iconOptions, 'tag', 'span');
         $iconType = ArrayHelper::remove($iconOptions, 'icon');
         return Yii::$app->material->helperHtml::tag($tag, $iconType, $iconOptions);
+    }
 
+    /**
+     * Creates a URL for the given action and model.
+     * This method is called for each button and each row.
+     * @param string $action the button name (or action ID)
+     * @param \yii\db\ActiveRecordInterface $model the data model
+     * @param mixed $key the key associated with the data model
+     * @param int $index the current row index
+     * @return string the created URL
+     */
+    public function createUrl($action, $model, $key, $index)
+    {
+        if (is_callable($this->urlCreator)) {
+            return call_user_func($this->urlCreator, $action, $model, $key, $index, $this);
+        }
+
+        $params = is_array($key) ? $key : [$model::primaryKey()[0] => (string) $key];
+        $params[0] = $this->controller ? $this->controller . '/' . $action : $action;
+
+        return Url::toRoute($params);
     }
 }

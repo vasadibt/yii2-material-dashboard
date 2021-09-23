@@ -42,7 +42,6 @@ if (!empty($appAssetClass = Yii::$app->material->appAssetClass)) {
     </div>
 </div>
 
-<?= $this->render('_footer') ?>
 
 <?php $this->endBody() ?>
 </body>

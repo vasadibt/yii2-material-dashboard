@@ -43,7 +43,7 @@ class Html extends \yii\bootstrap4\Html
      */
     public static function ripple()
     {
-        return static::div( '', ['class' => 'ripple-container']);
+        return static::div('', ['class' => 'ripple-container']);
     }
 
     /**
@@ -65,6 +65,20 @@ class Html extends \yii\bootstrap4\Html
             ]),
             ['class' => 'items-per-page-container']
         );
+    }
+
+    public static function addCssClassWhen($condition, &$options, $class)
+    {
+        if ($condition) {
+            static::addCssClass($options, $class);
+        }
+    }
+
+    public static function removeCssClassWhen($condition, &$options, $class)
+    {
+        if ($condition) {
+            static::removeCssClass($options, $class);
+        }
     }
 
 }

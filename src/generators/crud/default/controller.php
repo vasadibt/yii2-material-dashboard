@@ -6,33 +6,10 @@
 use yii\db\ActiveRecordInterface;
 use yii\helpers\StringHelper;
 
-
 /** @var yii\web\View $this */
 /** @var vasadibt\materialdashboard\generators\crud\Generator $generator */
 
-$controllerClass = StringHelper::basename($generator->controllerClass);
 $modelClass = StringHelper::basename($generator->modelClass);
-$searchModelClass = StringHelper::basename($generator->searchModelClass);
-if ($modelClass === $searchModelClass) {
-    $searchModelAlias = $searchModelClass . 'Search';
-}
-
-/* @var $class ActiveRecordInterface */
-$class = $generator->modelClass;
-$pks = $class::primaryKey();
-$urlParams = $generator->generateUrlParams();
-$actionParams = $generator->generateActionParams();
-$actionParamComments = $generator->generateActionParamComments();
-
-if (count($pks) === 1) {
-    $condition = '$id';
-} else {
-    $condition = [];
-    foreach ($pks as $pk) {
-        $condition[] = "'$pk' => \$$pk";
-    }
-    $condition = '[' . implode(', ', $condition) . ']';
-}
 
 echo "<?php\n";
 ?>
@@ -53,9 +30,9 @@ use yii\web\Response;
 use yii2tech\spreadsheet\Spreadsheet;
 
 /**
- * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
+ * <?= StringHelper::basename($generator->controllerClass) ?> implements the CRUD actions for <?= $modelClass ?> model.
  */
-class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
+class <?= StringHelper::basename($generator->controllerClass) ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
 {
     /**
      * {@inheritdoc}
@@ -82,7 +59,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionIndex(Request $request)
     {
-        $searchModel = (new <?= $searchModelClass ?>())->search($request);
+        $searchModel = (new <?= StringHelper::basename($generator->searchModelClass) ?>())->search($request);
         return $this->render('index', compact('searchModel'));
     }
 
@@ -100,7 +77,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 
         if ($model->load($request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Sikeresen létrehozta az elemet!');
-            return $this->redirect(['update', <?= $urlParams ?>]);
+            return $this->redirect(array_merge(['update'], $model->getPrimaryKey(true)));
         }
 
         return $this->render('create', compact('model'));
@@ -110,17 +87,16 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      * Updates an existing <?= $modelClass ?> model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param Request $request
-     * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
      * @return string|Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate(Request $request, <?= $actionParams ?>)
+    public function actionUpdate(Request $request)
     {
-        $model = $this->findModel(<?= $actionParams ?>);
+        $model = $this->findModel($request);
 
         if ($model->load($request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Sikeresen módosította az elemet!');
-            return $this->redirect(['update', <?= $urlParams ?>]);
+            return $this->redirect(array_merge(['update'], $model->getPrimaryKey(true)));
         }
 
         return $this->render('update', compact('model'));
@@ -129,14 +105,14 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     /**
      * Deletes an existing <?= $modelClass ?> model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
+     * @param Request $request
      * @return Response
      * @throws NotFoundHttpException if the model cannot be found
      * @throws \Throwable
      */
-    public function actionDelete(<?= $actionParams ?>)
+    public function actionDelete(Request $request)
     {
-        $this->findModel(<?= $actionParams ?>)->delete();
+        $this->findModel($request)->delete();
         Yii::$app->session->setFlash('success', 'Sikeresen eltávolította az elemet!');
         return $this->redirect(['index']);
     }
@@ -147,7 +123,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionExport(Request $request)
     {
-        $searchModel = (new <?= $searchModelClass ?>())->search($request);
+        $searchModel = (new <?= StringHelper::basename($generator->searchModelClass) ?>())->search($request);
         $searchModel->getDataProvider()->pagination = false;
 
         $exporter = new Spreadsheet([
@@ -159,19 +135,19 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             ],
         ]);
 
-        return $exporter->send(sprintf('%s-export_%s.xls', Inflector::slug($searchModel::title()), now()->format('Y_m_d-H_i_s')));
+        return $exporter->send(sprintf('%s-export_%s.xls', Inflector::slug(Yii::$app->material->modelTitle($searchModel)), date('Y_m_d-H_i_s')));
     }
 
     /**
      * Finds the <?= $modelClass ?> model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
-     * @return <?=                   $modelClass ?> the loaded model
+     * @param Request $request
+     * @return <?= $modelClass ?> the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel(<?= $actionParams ?>)
+    protected function findModel(Request $request)
     {
-        if ($model = <?= $modelClass ?>::findOne(<?= $condition ?>)) {
+        if ($model = <?= $modelClass ?>::findOne($request->get(<?= $modelClass ?>::primaryKey()[0]))) {
             return $model;
         }
 

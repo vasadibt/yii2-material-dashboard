@@ -28,6 +28,7 @@ class Generator extends GiiCrudGenerator
     public $buttonHelperClass = 'vasadibt\materialdashboard\helpers\Button';
     public $activeFormClass = 'vasadibt\materialdashboard\widgets\ActiveForm';
     public $gridViewClass = 'vasadibt\materialdashboard\grid\GridView';
+    public $formBuilderClass = 'kartik\builder\Form';
 
     /**
      * {@inheritdoc}

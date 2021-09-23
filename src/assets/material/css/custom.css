@@ -1,18 +1,29 @@
-.bmd-form-group [class*=" bmd-label"], .bmd-form-group [class^=bmd-label] {
-    position: relative !important;
-}
 
 .main-panel > .content {
     padding-top: 1px !important;
+}
+
+.breadcrumb {
+    margin-bottom: 0;
+}
+
+/* ActiveForm fixes */
+.bmd-form-group [class*=" bmd-label"], .bmd-form-group [class^=bmd-label] {
+    position: relative !important;
 }
 
 .form-group.has-danger .invalid-feedback {
     display: block;
 }
 
-.breadcrumb {
-    margin-bottom: 0;
+
+.kv-form-horizontal .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
 }
+/* ActiveForm fixes */
 
 /* GridView fixes */
 .items-per-page-container .control-label {
@@ -25,6 +36,10 @@
     width: auto;
     padding-left: 5px;
     padding-right: 5px;
+}
+
+.grid-view {
+    overflow: hidden;
 }
 
 .grid-view .table > tbody > tr > td,
@@ -68,7 +83,7 @@
     border-width: 1px !important;
 }
 
-.not-set{
+.not-set {
     color: #c55;
     font-style: italic;
     font-size: 0.8em;

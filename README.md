@@ -32,6 +32,11 @@ Add material to view component theme part in components configurations
                 '@app/views' => '@vasadibt/materialdashboard/views',
             ],
         ],
+        'on beforeRender' => function(){
+            if(!Yii::$app->request->isAjax){
+                \frontend\assets\AppAsset::register(Yii::$app->view);
+            }
+        }
     ],
 ],
  ```

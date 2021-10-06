@@ -8,7 +8,12 @@
 
 namespace vasadibt\materialdashboard\grid;
 
+use vasadibt\materialdashboard\interfaces\SearchModelInterface;
 use Yii;
+use yii\data\DataProviderInterface;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * Class GridView
@@ -62,17 +67,22 @@ class GridView extends \kartik\grid\GridView
 
     public function init()
     {
-        if ($this->filterModel instanceof \vasadibt\materialdashboard\interfaces\SearchModelInterface) {
-            $this->dataProvider ??= $this->filterModel->getDataProvider();
+        if($this->dataProvider === null
+            && $this->filterModel instanceof SearchModelInterface
+        ){
+            $this->dataProvider = $this->filterModel->getDataProvider();
         }
 
-        if (!isset($this->replaceTags['{pageSizeTop}'])) {
-            $this->replaceTags['{pageSizeTop}'] = Yii::$app->material->helperHtml::pageSizeSelector($this->filterModel, 'items-per-page-top', $this->pageSizes);
+        if($this->dataProvider instanceof DataProviderInterface){
+            if (!isset($this->replaceTags['{pageSizeTop}'])) {
+                $this->replaceTags['{pageSizeTop}'] = Yii::$app->material->helperHtml::pageSizeSelector($this->dataProvider, 'items-per-page-top', $this->pageSizes);
+            }
+
+            if (!isset($this->replaceTags['{pageSizeBottom}'])) {
+                $this->replaceTags['{pageSizeBottom}'] = Yii::$app->material->helperHtml::pageSizeSelector($this->dataProvider, 'items-per-page-bottom', $this->pageSizes);
+            }
         }
 
-        if (!isset($this->replaceTags['{pageSizeBottom}'])) {
-            $this->replaceTags['{pageSizeBottom}'] = Yii::$app->material->helperHtml::pageSizeSelector($this->filterModel, 'items-per-page-bottom', $this->pageSizes);
-        }
 
         parent::init();
     }

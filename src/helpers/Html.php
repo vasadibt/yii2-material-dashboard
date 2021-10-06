@@ -2,6 +2,7 @@
 
 namespace vasadibt\materialdashboard\helpers;
 
+use yii\data\DataProviderInterface;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -47,14 +48,14 @@ class Html extends \yii\bootstrap4\Html
     }
 
     /**
-     * @param $searchModel
+     * @param DataProviderInterface $dataProvider
      * @param $id
      * @param $pageSizeValues
      * @return string
      */
-    public static function pageSizeSelector($searchModel, $id, $pageSizeValues)
+    public static function pageSizeSelector(DataProviderInterface $dataProvider, $id, $pageSizeValues)
     {
-        $selectedPageSize = $searchModel->dataProvider->getPagination() ? $searchModel->dataProvider->getPagination()->pageSize : '-';
+        $selectedPageSize = $dataProvider->getPagination() ? $dataProvider->getPagination()->pageSize : '-';
 
         return static::div(
             static::label('Oldal mérete', $id, ['class' => 'control-label mr-2'])

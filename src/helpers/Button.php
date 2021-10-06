@@ -26,11 +26,13 @@ class Button
     /**
      * @return string
      */
-    public static function export()
+    public static function export($exportUrl = null)
     {
+        $exportUrl = $exportUrl ?? ['export'];
+
         return Html::a(
             Html::icon('file_download') . ' ' . Html::span('Excel exportálás', ['class' => 'd-none d-md-inline-block']) . Html::ripple(),
-            array_merge(['export'], Yii::$app->request->getQueryParams()),
+            array_merge($exportUrl, Yii::$app->request->getQueryParams()),
             [
                 'class' => 'btn btn-sm btn-info',
                 'data-method' => 'post',

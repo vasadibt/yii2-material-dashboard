@@ -15,10 +15,4 @@ namespace vasadibt\materialdashboard\grid;
 class SerialColumn extends \kartik\grid\SerialColumn
 {
     public $width = '30px';
-
-    public function init()
-    {
-        parent::init();
-        $this->setPageRows();
-    }
 }

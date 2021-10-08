@@ -27,7 +27,7 @@ use yii\helpers\Inflector;
 use yii\web\NotFoundHttpException;
 use yii\web\Request;
 use yii\web\Response;
-use yii2tech\spreadsheet\Spreadsheet;
+use <?= ltrim($generator->spreadsheetBuilder, '\\')?>;
 
 /**
  * <?= StringHelper::basename($generator->controllerClass) ?> implements the CRUD actions for <?= $modelClass ?> model.
@@ -55,11 +55,14 @@ class <?= StringHelper::basename($generator->controllerClass) ?> extends <?= Str
 
     /**
      * Lists all <?= $modelClass ?> models.
+     *
+     * @param Request $request
      * @return string
      */
     public function actionIndex(Request $request)
     {
-        $searchModel = (new <?= StringHelper::basename($generator->searchModelClass) ?>())->search($request);
+        $searchModel = new <?= StringHelper::basename($generator->searchModelClass) ?>();
+        $searchModel->search($request);
         return $this->render('index', compact('searchModel'));
     }
 
@@ -75,9 +78,11 @@ class <?= StringHelper::basename($generator->controllerClass) ?> extends <?= Str
         $model = new <?= $modelClass ?>();
         $model->loadDefaultValues();
 
-        if ($model->load($request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Sikeresen létrehozta az elemet!');
-            return $this->redirect(array_merge(['update'], $model->getPrimaryKey(true)));
+        if ($model->load($request->post())) {
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Sikeresen létrehozta az elemet!');
+                return $this->redirect(array_merge(['update'], $model->getPrimaryKey(true)));
+            }
         }
 
         return $this->render('create', compact('model'));
@@ -86,6 +91,7 @@ class <?= StringHelper::basename($generator->controllerClass) ?> extends <?= Str
     /**
      * Updates an existing <?= $modelClass ?> model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param Request $request
      * @return string|Response
      * @throws NotFoundHttpException if the model cannot be found
@@ -94,9 +100,11 @@ class <?= StringHelper::basename($generator->controllerClass) ?> extends <?= Str
     {
         $model = $this->findModel($request);
 
-        if ($model->load($request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Sikeresen módosította az elemet!');
-            return $this->redirect(array_merge(['update'], $model->getPrimaryKey(true)));
+        if ($model->load($request->post())) {
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Sikeresen módosította az elemet!');
+                return $this->redirect(array_merge(['update'], $model->getPrimaryKey(true)));
+            }
         }
 
         return $this->render('update', compact('model'));
@@ -123,10 +131,10 @@ class <?= StringHelper::basename($generator->controllerClass) ?> extends <?= Str
      */
     public function actionExport(Request $request)
     {
-        $searchModel = (new <?= StringHelper::basename($generator->searchModelClass) ?>())->search($request);
-        $searchModel->getDataProvider()->pagination = false;
+        $searchModel = new <?= StringHelper::basename($generator->searchModelClass) ?>(['pagination' => false]);
+        $searchModel->search($request);
 
-        $exporter = new Spreadsheet([
+        $exporter = new <?= StringHelper::basename($generator->spreadsheetBuilder) ?>([
             'dataProvider' => $searchModel->getDataProvider(),
             'columns' => [
 <?php foreach ($generator->getTableSchema()->columns as $column): ?>
@@ -147,10 +155,15 @@ class <?= StringHelper::basename($generator->controllerClass) ?> extends <?= Str
      */
     protected function findModel(Request $request)
     {
-        if ($model = <?= $modelClass ?>::findOne($request->get(<?= $modelClass ?>::primaryKey()[0]))) {
+        $query = <?= $modelClass ?>::find();
+        foreach (<?= $modelClass ?>::primaryKey() as $primaryKey){
+            $query->andWhere(['=', $primaryKey, $request->get($primaryKey)]);
+        }
+
+        if($model = $query->one()){
             return $model;
         }
 
-        throw new NotFoundHttpException('A kért oldal nem létezik.');
+        throw new NotFoundHttpException(<?= $generator->generateString('The requested page does not exist.') ?>);
     }
 }

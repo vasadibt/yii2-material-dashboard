@@ -11,9 +11,6 @@ namespace vasadibt\materialdashboard\grid;
 use vasadibt\materialdashboard\interfaces\SearchModelInterface;
 use Yii;
 use yii\data\DataProviderInterface;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
-use yii\helpers\Url;
 
 /**
  * Class GridView
@@ -52,28 +49,17 @@ class GridView extends \kartik\grid\GridView
 
 
     public $pageSizes = [1 => 1, 2 => 2, 20 => 20, 50 => 50, 100 => 100, '-' => 'Mind'];
-
-    public function __construct($config = [])
-    {
-        $this->toolbar = [
-            [
-                'options' => ['class' => 'd-flex justify-content-end'],
-                'content' => Yii::$app->material->helperButton::export() . Yii::$app->material->helperButton::reset()
-            ],
-        ];
-
-        parent::__construct($config);
-    }
+    public $toolbar;
 
     public function init()
     {
-        if($this->dataProvider === null
+        if ($this->dataProvider === null
             && $this->filterModel instanceof SearchModelInterface
-        ){
+        ) {
             $this->dataProvider = $this->filterModel->getDataProvider();
         }
 
-        if($this->dataProvider instanceof DataProviderInterface){
+        if ($this->dataProvider instanceof DataProviderInterface) {
             if (!isset($this->replaceTags['{pageSizeTop}'])) {
                 $this->replaceTags['{pageSizeTop}'] = Yii::$app->material->helperHtml::pageSizeSelector($this->dataProvider, 'items-per-page-top', $this->pageSizes);
             }
@@ -83,6 +69,15 @@ class GridView extends \kartik\grid\GridView
             }
         }
 
+        if ($this->toolbar === null) {
+            $this->toolbar = [
+                [
+                    'options' => ['class' => 'd-flex justify-content-end'],
+                    'content' => Yii::$app->material->helperButton::export()
+                        . Yii::$app->material->helperButton::reset()
+                ],
+            ];
+        }
 
         parent::init();
     }

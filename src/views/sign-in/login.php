@@ -1,14 +1,12 @@
 <?php
 
-use vasadibt\materialdashboard\models\LoginForm;
 use vasadibt\materialdashboard\widgets\ActiveForm;
-use yii\helpers\Url;
 
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model LoginForm */
+/** @var yii\web\View $this */
+/** @var yii\bootstrap\ActiveForm $form */
+/** @var yii\base\Model $model */
 
-$this->title = Yii::t('materialdashboard', 'Sign In');
+$this->title = Yii::t('materialdashboard', 'Sign in');
 
 $js = <<<JS
 setTimeout(function() {
@@ -30,23 +28,23 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
                         <h4 class="card-title"><?= Yii::$app->material->helperHtml::encode($this->title) ?></h4>
                     </div>
                     <div class="card-body">
-
-
-
-
                         <?php $form = ActiveForm::begin([]) ?>
+
                         <?= $form->errorSummary($model)?>
                         <?= $form->field($model, 'email')
                             ->textInput(['placeholder' => $model->getAttributeLabel('email')])
                             ->prepend(['content' => '<i class="material-icons">email</i>'])
                             ->label(false) ?>
+
                         <?= $form->field($model, 'password')
                             ->passwordInput(['placeholder' => $model->getAttributeLabel('password')])
                             ->prepend(['content' => '<i class="material-icons">lock</i>'])
                             ->label(false) ?>
+
                         <div class="mt-4 text-center">
                             <?= Yii::$app->material->helperHtml::submitButton(Yii::t('materialdashboard', 'Sign in'), ['class' => 'btn btn-info']) ?>
                         </div>
+
                         <?php ActiveForm::end() ?>
                     </div>
                 </div>

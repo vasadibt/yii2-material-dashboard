@@ -22,22 +22,32 @@ echo "<?php\n";
 namespace <?= StringHelper::dirname(ltrim($generator->searchModelClass, '\\')) ?>;
 
 use <?= ltrim($generator->modelClass, '\\') ?>;
-use vasadibt\materialdashboard\interfaces\SearchModelInterface;
+use <?= ltrim($generator->searchModelInterface, '\\') ?>;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
+use yii\data\Pagination;
+use yii\data\Sort;
 use yii\db\ActiveQueryInterface;
 use yii\web\Request;
 
 /**
  * <?= $searchModelClass ?> represents the model behind the search form of `<?= $generator->modelClass ?>`.
  */
-class <?= $searchModelClass ?> extends <?= $modelClass ?> implements SearchModelInterface
+class <?= $searchModelClass ?> extends <?= $modelClass ?> implements <?= StringHelper::basename($generator->searchModelInterface) . "\n" ?>
 {
+    /**
+     * @var Pagination|array|false|null
+     */
+    public $pagination;
+    /**
+     * @var Sort|array|false
+     */
+    public $sort;
     /**
      * @var DataProviderInterface
      */
-    public $dataProvider;
+    protected $dataProvider;
 
     /**
      * {@inheritDoc}
@@ -61,17 +71,16 @@ class <?= $searchModelClass ?> extends <?= $modelClass ?> implements SearchModel
      * Creates data provider instance with search query applied
      *
      * @param Request $request
-     * @return $this
+     * @return <?= StringHelper::basename($generator->searchModelInterface) . "\n" ?>
      */
-    public function search(Request $request): self
+    public function search(Request $request): <?= StringHelper::basename($generator->searchModelInterface) . "\n" ?>
     {
         $query = <?= $modelClass ?>::find();
 
-        // add conditions that should always apply here
-
         $this->dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => $request->get('per-page') == '-' ? false : [],
+            'pagination' => $this->pagination ?? ($request->get('per-page') == '-' ? false : []),
+            'sort' => $this->sort ?? [],
         ]);
 
         $this->load($request->getQueryParams());
@@ -85,11 +94,19 @@ class <?= $searchModelClass ?> extends <?= $modelClass ?> implements SearchModel
 
     /**
      * @param ActiveQueryInterface $query
-     * @return $this
+     * @return <?= StringHelper::basename($generator->searchModelInterface) . "\n" ?>
      */
-    public function filterQuery($query): self
+    public function filterQuery($query): <?= StringHelper::basename($generator->searchModelInterface) . "\n" ?>
     {
-        <?= implode("\n        ", $searchConditions) ?>
+        $query->andFilterWhere(['AND',
+<?php foreach($generator->getSearchConditions() as $column => $type): ?>
+<?php if ($type == $generator::SIMPLE): ?>
+<?php else: ?>
+            ['<?= $column ?>' => $this-><?= $column ?>],
+<?php endif; ?>
+            ['<?= $type ?>', '<?= $column ?>', $this-><?= $column ?>],
+<?php endforeach ?>
+        ]);
 
         return $this;
     }
@@ -102,5 +119,15 @@ class <?= $searchModelClass ?> extends <?= $modelClass ?> implements SearchModel
     public function getDataProvider(): DataProviderInterface
     {
         return $this->dataProvider;
+    }
+
+    /**
+     * Set Search model built DataProvider object
+     *
+     * @param DataProviderInterface $dataProvider
+     */
+    public function setDataProvider(DataProviderInterface $dataProvider)
+    {
+        $this->dataProvider = $dataProvider;
     }
 }

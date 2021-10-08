@@ -1,11 +1,10 @@
 <?php
 
 use vasadibt\materialdashboard\widgets\ActiveForm;
-use yii\helpers\Url;
 
-/** @var $this yii\web\View */
-/** @var $form yii\bootstrap\ActiveForm */
-/** @var $model \vasadibt\materialdashboard\models\LockForm */
+/** @var yii\web\View $this */
+/** @var yii\bootstrap\ActiveForm $form */
+/** @var yii\base\Model $model */
 
 $this->title = Yii::t('materialdashboard', 'Locked account');
 
@@ -26,7 +25,7 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
                 <div class="card card-profile card-hidden">
                     <div class="card-header">
                         <div class="card-avatar">
-                            <img class="img" src="<?= $bundle->baseUrl . '/img/faces/marc.jpg' ?>">
+                            <img class="img" src="<?= $bundle->baseUrl . '/img/faces/marc.jpg' ?>" alt="avatar"/>
                         </div>
                     </div>
                     <div class="card-body">

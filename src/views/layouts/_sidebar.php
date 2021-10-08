@@ -22,7 +22,7 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
         <?= Menu::widget([
             'items' => [
                 [
-                    'label' => Yii::t('materialdashboard','Users'),
+                    'label' => 'Users',
                     'icon' => 'face',
                     'url' => ['/auth/user/index'],
                 ],

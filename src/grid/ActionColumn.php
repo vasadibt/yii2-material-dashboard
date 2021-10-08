@@ -65,9 +65,9 @@ class ActionColumn extends \kartik\grid\ActionColumn
             ];
 
             if ($name === 'delete') {
-                $item = $this->grid->itemLabelSingle ?? Yii::t('kvgrid', 'item');
+                $item = $this->grid->itemLabelSingle ?? Yii::t('materialdashboard', 'item');
                 $options['data-method'] = 'post';
-                $options['data-confirm'] = Yii::t('kvgrid', 'Are you sure to delete this {item}?', ['item' => $item]);
+                $options['data-confirm'] = Yii::t('materialdashboard', 'Are you sure to delete this {item}?', ['item' => $item]);
             }
             $options = array_replace_recursive($options, $this->buttonOptions, $this->$opts);
             $label = $this->renderLabel($options, $title, [

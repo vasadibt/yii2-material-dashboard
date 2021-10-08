@@ -1,7 +1,9 @@
 <?php
 
-/* @var $this \yii\web\View */
-/* @var $content string */
+use yii2mod\notify\BootstrapNotify;
+
+/** @var \yii\web\View $this */
+/** @var string $content */
 
 if (!empty($appAssetClass = Yii::$app->material->appAssetClass)) {
     $appAssetClass::register($this);
@@ -20,7 +22,8 @@ if (!empty($appAssetClass = Yii::$app->material->appAssetClass)) {
 </head>
 <body>
 <?php $this->beginBody() ?>
-<?php echo $content ?>
+<?= BootstrapNotify::widget() ?>
+<?= $content ?>
 <?php $this->endBody() ?>
 </body>
 </html>

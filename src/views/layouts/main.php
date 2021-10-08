@@ -1,7 +1,6 @@
 <?php
 
 use yii\web\View;
-use yii\widgets\Breadcrumbs;
 use yii2mod\notify\BootstrapNotify;
 
 /* @var $this View */

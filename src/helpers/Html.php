@@ -5,10 +5,6 @@ namespace vasadibt\materialdashboard\helpers;
 use yii\data\DataProviderInterface;
 use yii\helpers\ArrayHelper;
 
-/**
- * Class Html
- * @package vasadibt\materialdashboard
- */
 class Html extends \yii\bootstrap4\Html
 {
     /**
@@ -68,6 +64,11 @@ class Html extends \yii\bootstrap4\Html
         );
     }
 
+    /**
+     * @param $condition
+     * @param $options
+     * @param $class
+     */
     public static function addCssClassWhen($condition, &$options, $class)
     {
         if ($condition) {
@@ -75,6 +76,11 @@ class Html extends \yii\bootstrap4\Html
         }
     }
 
+    /**
+     * @param $condition
+     * @param $options
+     * @param $class
+     */
     public static function removeCssClassWhen($condition, &$options, $class)
     {
         if ($condition) {

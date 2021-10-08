@@ -32,11 +32,6 @@ Add material to view component theme part in components configurations
                 '@app/views' => '@vasadibt/materialdashboard/views',
             ],
         ],
-        'on beforeRender' => function(){
-            if(!Yii::$app->request->isAjax){
-                \frontend\assets\AppAsset::register(Yii::$app->view);
-            }
-        }
     ],
 ],
  ```
@@ -64,27 +59,6 @@ And add material config component to components configurations, And set the defa
     'material' => [
         'class' => 'vasadibt\materialdashboard\components\Material',
         'appAssetClass' => 'frontend\assets\AppAsset',
-    ],
-],
-```
-
-## 3. Optional you can config the global access of project
-
-```php
-'as access' => [
-    'class' => 'yii\filters\AccessControl',
-    'rules' => [
-        [
-            'controllers' => [
-                'sign-in',
-                'lock',
-            ],
-            'allow' => true,
-        ],
-        [// any other request have to logged user
-            'roles' => ['@'],
-            'allow' => true,
-        ],
     ],
 ],
 ```

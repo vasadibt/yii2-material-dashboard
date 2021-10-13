@@ -33,4 +33,8 @@ return [
     'Profile' => 'Profil',
     'Sign in' => 'Belépés',
     'item' => 'tétel',
+    'Back to login' => 'Vissza a belépésre',
+    'Forgot your password?' => 'Elfelejtette a jelszavát?',
+    'Reset password' => 'Jelszó törlése',
+    'Send email' => 'E-mail küldése',
 ];

@@ -40,12 +40,6 @@ use yii\widgets\Breadcrumbs;
                         <p class="d-lg-none d-md-block">Stats</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= Url::to(['/auth/lock/lock'])?>">
-                        <i class="material-icons">lock</i>
-                        <p class="d-lg-none d-md-block">Stats</p>
-                    </a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">person</i>
@@ -54,10 +48,10 @@ use yii\widgets\Breadcrumbs;
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                        <a class="dropdown-item" href="<?= Url::to(['/auth/profile'])?>"><?= Yii::t('materialdashboard', 'Profile')?></a>
+                        <a class="dropdown-item" href="<?= Url::to(['/user/profile'])?>"><?= Yii::t('materialdashboard', 'Profile')?></a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="<?= Url::to(['/auth/lock/lock'])?>" data-method="post"><?= Yii::t('materialdashboard', 'Lock')?></a>
-                        <a class="dropdown-item" href="<?= Url::to(['/auth/sign-in/logout'])?>" data-method="post"><?= Yii::t('materialdashboard', 'Log out')?></a>
+                        <a class="dropdown-item" href="<?= Url::to(['/auth/lock/down'])?>" data-method="post"><?= Yii::t('materialdashboard', 'Lock')?></a>
+                        <a class="dropdown-item" href="<?= Url::to(['/auth/auth/logout'])?>" data-method="post"><?= Yii::t('materialdashboard', 'Log out')?></a>
                     </div>
                 </li>
             </ul>

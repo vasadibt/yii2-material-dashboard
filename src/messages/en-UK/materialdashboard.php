@@ -33,4 +33,8 @@ return [
     'Profile' => 'Profile',
     'Sign in' => 'Sign in',
     'item' => 'item',
+    'Back to login' => 'Back to login',
+    'Forgot your password?' => 'Forgot your password?',
+    'Reset password' => 'Reset password',
+    'Send email' => 'Send email',
 ];

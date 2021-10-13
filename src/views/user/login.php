@@ -6,7 +6,7 @@ use vasadibt\materialdashboard\widgets\ActiveForm;
 /** @var yii\bootstrap\ActiveForm $form */
 /** @var yii\base\Model $model */
 
-$this->title = Yii::t('materialdashboard', 'Sign in');
+$this->title = Yii::$app->name . ' - ' . Yii::t('materialdashboard', 'Sign in');
 
 $js = <<<JS
 setTimeout(function() {
@@ -19,7 +19,7 @@ $this->registerJs($js);
 $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\MaterialAsset::class);
 
 ?>
-<div class="page-header login-page header-filter" filter-color="black" style="background-image: url('<?= $bundle->baseUrl . '/img/login.jpg' ?>'); background-size: cover; background-position: top center;">
+<div class="page-header login-page header-filter" filter-color="black" style="background-image: url('<?= $bundle->baseUrl ?>/img/login.jpg'); background-size: cover; background-position: top center;">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
@@ -31,8 +31,9 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
                         <?php $form = ActiveForm::begin([]) ?>
 
                         <?= $form->errorSummary($model)?>
+
                         <?= $form->field($model, 'email')
-                            ->textInput(['placeholder' => $model->getAttributeLabel('email')])
+                            ->textInput(['placeholder' => $model->getAttributeLabel('email'), 'autofocus' => 1])
                             ->prepend(['content' => '<i class="material-icons">email</i>'])
                             ->label(false) ?>
 
@@ -41,8 +42,15 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
                             ->prepend(['content' => '<i class="material-icons">lock</i>'])
                             ->label(false) ?>
 
-                        <div class="mt-4 text-center">
-                            <?= Yii::$app->material->helperHtml::submitButton(Yii::t('materialdashboard', 'Sign in'), ['class' => 'btn btn-info']) ?>
+                        <div class="text-center py-1">
+                            <?= Yii::$app->material->helperHtml::a(Yii::t('materialdashboard', 'Forgot your password?'), ['/auth/forgot-password/reset-request'], [
+                                'class' => 'btn-link',
+                                'tabindex' => '-1',
+                            ]) ?>
+                        </div>
+
+                        <div class="my-3 text-center">
+                            <?= Yii::$app->material->helperHtml::submitButton(Yii::t('materialdashboard', 'Sign in'), ['class' => 'btn btn-info btn-sm btn-round']) ?>
                         </div>
 
                         <?php ActiveForm::end() ?>

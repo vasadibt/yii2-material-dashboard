@@ -1,12 +1,13 @@
 <?php
 
 use vasadibt\materialdashboard\widgets\ActiveForm;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
-/** @var yii\bootstrap\ActiveForm $form */
-/** @var yii\base\Model $model */
+/** @var \yii\base\Model $model */
 
-$this->title = Yii::t('materialdashboard', 'Locked account');
+$this->title = Yii::t('materialdashboard', 'Reset password');
 
 $js = <<<JS
 setTimeout(function() {
@@ -22,33 +23,40 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+
+                <?php $form = ActiveForm::begin([]) ?>
+
                 <div class="card card-profile card-hidden">
                     <div class="card-header">
                         <div class="card-avatar">
-                            <img class="img" src="<?= $bundle->baseUrl ?>/img/faces/marc.jpg" alt="avatar"/>
+                            <img class="img" src="<?= Url::to(['/img/faces/marc.jpg']) ?>">
                         </div>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title"><?= $model->user->username ?></h4>
-                        <?php $form = ActiveForm::begin([]) ?>
-                        <?= $form->errorSummary($model) ?>
-                        <?= $form->field($model, 'password')
+
+                        <?= $form->errorSummary($model)?>
+
+                        <?= $form->field($model, 'new_password')
                             ->passwordInput(['placeholder' => $model->getAttributeLabel('password'), 'autofocus' => 1])
                             ->prepend(['content' => '<i class="material-icons">lock</i>'])
                             ->label(false) ?>
 
-                        <div class="mt-4 text-center">
-                            <?= Yii::$app->material->helperHtml::a(Yii::t('materialdashboard', 'Change account'), Yii::$app->user->loginUrl, ['class' => 'btn btn-info btn-round']) ?>
-                            <?= Yii::$app->material->helperHtml::submitButton(Yii::t('materialdashboard', 'Login'), ['class' => 'btn btn-primary btn-round']) ?>
-                        </div>
-                        <?php ActiveForm::end() ?>
+                        <?= $form->field($model, 'repeat_password')
+                            ->passwordInput(['placeholder' => $model->getAttributeLabel('password')])
+                            ->prepend(['content' => '<i class="material-icons">lock</i>'])
+                            ->label(false) ?>
+
+                    </div>
+                    <div class="card-footer justify-content-center">
+                        <?= Html::a(Yii::t('materialdashboard','Change account'), Yii::$app->user->loginUrl,['class' => 'btn btn-info btn-round']) ?>
+                        <?= Html::submitButton(Yii::t('materialdashboard','Login'), ['class' => 'btn btn-primary btn-round']) ?>
                     </div>
                 </div>
+                <?php ActiveForm::end() ?>
             </div>
         </div>
     </div>
-
-    <?= $this->render('../layouts/_footer') ?>
 </div>
 
 

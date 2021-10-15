@@ -51,7 +51,7 @@ use yii\widgets\Breadcrumbs;
                         <a class="dropdown-item" href="<?= Url::to(['/user/profile'])?>"><?= Yii::t('materialdashboard', 'Profile')?></a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="<?= Url::to(['/auth/lock/down'])?>" data-method="post"><?= Yii::t('materialdashboard', 'Lock')?></a>
-                        <a class="dropdown-item" href="<?= Url::to(['/auth/auth/logout'])?>" data-method="post"><?= Yii::t('materialdashboard', 'Log out')?></a>
+                        <a class="dropdown-item" href="<?= Url::to(['/auth/user/logout'])?>" data-method="post"><?= Yii::t('materialdashboard', 'Log out')?></a>
                     </div>
                 </li>
             </ul>

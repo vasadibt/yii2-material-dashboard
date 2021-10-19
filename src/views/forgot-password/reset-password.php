@@ -27,23 +27,21 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
                 <?php $form = ActiveForm::begin([]) ?>
 
                 <div class="card card-profile card-hidden">
-                    <div class="card-header">
-                        <div class="card-avatar">
-                            <img class="img" src="<?= Url::to(['/img/faces/marc.jpg']) ?>">
-                        </div>
+                    <div class="card-header card-header-info text-center">
+                        <h4 class="card-title"><?= Html::encode($this->title) ?></h4>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title"><?= $model->user->username ?></h4>
 
                         <?= $form->errorSummary($model)?>
 
-                        <?= $form->field($model, 'new_password')
-                            ->passwordInput(['placeholder' => $model->getAttributeLabel('password'), 'autofocus' => 1])
+                        <?= $form->field($model, 'newPassword')
+                            ->passwordInput(['placeholder' => $model->getAttributeLabel('newPassword'), 'autofocus' => 1])
                             ->prepend(['content' => '<i class="material-icons">lock</i>'])
                             ->label(false) ?>
 
-                        <?= $form->field($model, 'repeat_password')
-                            ->passwordInput(['placeholder' => $model->getAttributeLabel('password')])
+                        <?= $form->field($model, 'retypePassword')
+                            ->passwordInput(['placeholder' => $model->getAttributeLabel('retypePassword')])
                             ->prepend(['content' => '<i class="material-icons">lock</i>'])
                             ->label(false) ?>
 

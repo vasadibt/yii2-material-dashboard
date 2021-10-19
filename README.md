@@ -23,13 +23,15 @@ Add kartik grid module to the application modules config
 
 Add material to view component theme part in components configurations
 ```php
+'layoutPath' => '@vendor/vasadibt/yii2-material-dashboard/src/views/layouts',
+
 'components' => [
     // ...
     'view' => [
         // ...
         'theme' => [
             'pathMap' => [
-                '@app/views' => '@vasadibt/materialdashboard/views',
+                '@vasadibt/materialdashboard/views' => '@app/views',
             ],
         ],
     ],

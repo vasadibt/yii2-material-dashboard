@@ -28,7 +28,7 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
                         <h4 class="card-title"><?= Yii::$app->material->helperHtml::encode($this->title) ?></h4>
                     </div>
                     <div class="card-body">
-                        <?php $form = ActiveForm::begin([]) ?>
+                        <?php $form = ActiveForm::begin(['id' => 'login-form']) ?>
 
                         <?= $form->errorSummary($model)?>
 

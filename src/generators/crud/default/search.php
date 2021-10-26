@@ -11,7 +11,6 @@ use yii\helpers\StringHelper;
 $modelClass = StringHelper::basename($generator->modelClass);
 $searchModelClass = StringHelper::basename($generator->searchModelClass);
 
-$rules = $generator->generateSearchRules();
 $labels = $generator->generateSearchLabels();
 $searchAttributes = $generator->getSearchAttributes();
 $searchConditions = $generator->generateSearchConditions();
@@ -37,7 +36,7 @@ use yii\web\Request;
 class <?= $searchModelClass ?> extends <?= $modelClass ?> implements <?= StringHelper::basename($generator->searchModelInterface) . "\n" ?>
 {
     /**
-     * @var Pagination|array|false|null
+     * @var Pagination|array|false
      */
     public $pagination;
     /**
@@ -55,7 +54,9 @@ class <?= $searchModelClass ?> extends <?= $modelClass ?> implements <?= StringH
     public function rules()
     {
         return [
-            <?= implode(",\n            ", $rules) ?>,
+<?php foreach ($generator->generateSearchRules() as $rule): ?>
+            <?= $rule ?>,
+<?php endforeach ?>
         ];
     }
 
@@ -65,6 +66,18 @@ class <?= $searchModelClass ?> extends <?= $modelClass ?> implements <?= StringH
     public function scenarios()
     {
         return Model::scenarios();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+<?php foreach ($generator->generateSearchLabels() as $attribute => $label): ?>
+            '<?= $attribute ?>' => '<?= $label ?>',
+<?php endforeach ?>
+        ];
     }
 
     /**
@@ -101,10 +114,10 @@ class <?= $searchModelClass ?> extends <?= $modelClass ?> implements <?= StringH
         $query->andFilterWhere(['AND',
 <?php foreach($generator->getSearchConditions() as $column => $type): ?>
 <?php if ($type == $generator::SIMPLE): ?>
-<?php else: ?>
             ['<?= $column ?>' => $this-><?= $column ?>],
-<?php endif; ?>
+<?php else: ?>
             ['<?= $type ?>', '<?= $column ?>', $this-><?= $column ?>],
+<?php endif; ?>
 <?php endforeach ?>
         ]);
 

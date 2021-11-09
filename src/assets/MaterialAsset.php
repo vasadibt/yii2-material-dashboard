@@ -3,6 +3,7 @@
 namespace vasadibt\materialdashboard\assets;
 
 use yii\web\AssetBundle as BaseMaterialAsset;
+use yii\web\YiiAsset;
 
 /**
  * Material AssetBundle
@@ -20,15 +21,16 @@ class MaterialAsset extends BaseMaterialAsset
     ];
 
     public $js = [
-        'js/popper.min.js',
-        'js/bootstrap-material-design.min.js',
+        'js/core/popper.min.js',
+        'js/core/bootstrap-material-design.min.js',
+        'js/plugins/moment.min.js',
         'js/material-dashboard.min.js',
         'js/materialdashboard-fileinput.js',
         'js/custom.js',
     ];
 
     public $depends = [
-        \yii\web\YiiAsset::class,
-        \vasadibt\materialdashboard\assets\PerfectScrollbarAsset::class,
+        YiiAsset::class,
+        PerfectScrollbarAsset::class,
     ];
 }

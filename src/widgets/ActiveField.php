@@ -49,6 +49,22 @@ HTML;
 {hint}\n
 HTML;
 
+    /**
+     * @var string the template for rendering the Bootstrap 4.x custom file browser control
+     * @see https://getbootstrap.com/docs/4.1/components/forms/#file-browser
+     */
+    public $fileTemplate = "
+    {label}\n
+    {beginWrapper}
+    <div class=\"custom-file\">
+        {input}
+        <input type=\"text\" class=\"form-control inputFileVisible\" readonly>
+    </div>\n
+    {hint}\n
+    {error}\n
+    {endWrapper}
+";
+
 
     /**
      * {@inheritdoc}
@@ -121,6 +137,16 @@ HTML;
         return \yii\widgets\ActiveField::$type($options, false);
     }
 
+    public function fileInput($options = [])
+    {
+        $this->template = $this->fileTemplate;
+
+        Html::addCssClass($this->options, 'form-file-upload');
+        Html::addCssClass($this->options, 'form-file-simple');
+        Html::addCssClass($options, 'inputFileHidden');
+
+        return parent::fileInput($options);
+    }
 
     /**
      * @param $part

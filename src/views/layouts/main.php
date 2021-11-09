@@ -6,10 +6,7 @@ use yii2mod\notify\BootstrapNotify;
 /* @var $this View */
 /* @var $content string */
 
-if (!empty($appAssetClass = Yii::$app->material->appAssetClass)) {
-    $appAssetClass::register($this);
-}
-
+Yii::$app->material->register($this);
 
 ?>
 <?php $this->beginPage() ?>
@@ -18,9 +15,9 @@ if (!empty($appAssetClass = Yii::$app->material->appAssetClass)) {
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Yii::$app->material->helperHtml::encode($this->title) ?></title>
+    <title><?= \vasadibt\materialdashboard\helpers\Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>

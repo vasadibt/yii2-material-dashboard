@@ -1,0 +1,92 @@
+
+.main-panel > .content {
+    padding-top: 1px !important;
+}
+
+.breadcrumb {
+    margin-bottom: 0;
+}
+
+/* ActiveForm fixes */
+.bmd-form-group [class*=" bmd-label"], .bmd-form-group [class^=bmd-label] {
+    position: relative !important;
+}
+
+.form-group.has-danger .invalid-feedback {
+    display: block;
+}
+
+
+.kv-form-horizontal .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+/* ActiveForm fixes */
+
+/* GridView fixes */
+.items-per-page-container .control-label {
+    margin-right: 15px;
+}
+
+.items-per-page-container .form-control {
+    text-align: right;
+    display: inline-flex;
+    width: auto;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.grid-view {
+    overflow: hidden;
+}
+
+.grid-view .table > tbody > tr > td,
+.grid-view .table > tbody > tr > th,
+.grid-view .table > tfoot > tr > td,
+.grid-view .table > tfoot > tr > th,
+.grid-view .table > thead > tr > td,
+.grid-view .table > thead > tr > th {
+    padding: 1px 3px;
+}
+
+.grid-view .table thead tr th {
+    padding: 12px 12px;
+}
+
+.grid-view .table thead a.asc,
+.grid-view .table thead a.desc {
+    text-decoration: underline;
+    position: relative;
+}
+
+.grid-view .table thead a.asc:after,
+.grid-view .table thead a.desc:after {
+    position: absolute;
+    display: block;
+    top: -5px;
+    right: -10px;
+}
+
+.grid-view .table thead a.asc:after {
+    content: "\2191";
+}
+
+.grid-view .table thead a.desc:after {
+    content: "\2193";
+}
+
+.table-bordered,
+.table-bordered td,
+.table-bordered th {
+    border-width: 1px !important;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+    font-size: 0.8em;
+}
+
+/* GridView fixes */

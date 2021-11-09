@@ -31,7 +31,7 @@ use <?= $generator->activeFormClass ?>;
             '<?= $column->name ?>' => ['type' => <?= $generator->generateFormFormat($column) ?>],
 <?php endforeach; ?>
         ],
-        'contentAfter' => Html::tag('div', Yii::$app->material->helperButton::submit($model), ['class' => 'd-flex justify-content-center']),
+        'contentAfter' => Html::tag('div', Yii::$app->material->submit($model), ['class' => 'd-flex justify-content-center']),
     ]) ?>
     <?= '<?php ' ?><?= StringHelper::basename($generator->activeFormClass) ?>::end() ?>
 </div>

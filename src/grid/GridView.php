@@ -8,6 +8,7 @@
 
 namespace vasadibt\materialdashboard\grid;
 
+use vasadibt\materialdashboard\helpers\Html;
 use vasadibt\materialdashboard\interfaces\SearchModelInterface;
 use Yii;
 use yii\data\DataProviderInterface;
@@ -61,11 +62,11 @@ class GridView extends \kartik\grid\GridView
 
         if ($this->dataProvider instanceof DataProviderInterface) {
             if (!isset($this->replaceTags['{pageSizeTop}'])) {
-                $this->replaceTags['{pageSizeTop}'] = Yii::$app->material->helperHtml::pageSizeSelector($this->dataProvider, 'items-per-page-top', $this->pageSizes);
+                $this->replaceTags['{pageSizeTop}'] = Html::pageSizeSelector($this->dataProvider, 'items-per-page-top', $this->pageSizes);
             }
 
             if (!isset($this->replaceTags['{pageSizeBottom}'])) {
-                $this->replaceTags['{pageSizeBottom}'] = Yii::$app->material->helperHtml::pageSizeSelector($this->dataProvider, 'items-per-page-bottom', $this->pageSizes);
+                $this->replaceTags['{pageSizeBottom}'] = Html::pageSizeSelector($this->dataProvider, 'items-per-page-bottom', $this->pageSizes);
             }
         }
 
@@ -73,8 +74,8 @@ class GridView extends \kartik\grid\GridView
             $this->toolbar = [
                 [
                     'options' => ['class' => 'd-flex justify-content-end'],
-                    'content' => Yii::$app->material->helperButton::export()
-                        . Yii::$app->material->helperButton::reset()
+                    'content' => Yii::$app->material->export()
+                        . Yii::$app->material->reset($this->filterModel)
                 ],
             ];
         }

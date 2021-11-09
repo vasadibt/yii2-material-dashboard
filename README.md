@@ -46,9 +46,11 @@ Turn Off the bootstrap4 dependency in `BootstrapNotifyAsset` class
         // ...
         'bundles' => [
             // ...
-            'yii2mod\notify\BootstrapNotifyAsset' => [
-                'depends' => [],
-            ],
+            'yii\bootstrap\BootstrapAsset' => false,
+            'yii\bootstrap\BootstrapPluginAsset' => false,
+            'yii\bootstrap4\BootstrapAsset' => false,
+            'yii\bootstrap4\BootstrapPluginAsset' => false,
+            'kartik\form\ActiveFormAsset' => ['bsDependencyEnabled' => false],
         ],
     ],
 ],

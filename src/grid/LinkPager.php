@@ -2,6 +2,7 @@
 
 namespace vasadibt\materialdashboard\grid;
 
+use vasadibt\materialdashboard\helpers\Html;
 use Yii;
 use yii\helpers\ArrayHelper;
 
@@ -87,6 +88,6 @@ class LinkPager extends \vasadibt\materialdashboard\widgets\LinkPager
 
         $options = $this->listOptions;
         $tag = ArrayHelper::remove($options, 'tag', 'ul');
-        return Yii::$app->material->helperHtml::tag($tag, implode("\n", $buttons), $options);
+        return Html::tag($tag, implode("\n", $buttons), $options);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace vasadibt\materialdashboard\grid;
 
+use vasadibt\materialdashboard\helpers\Html;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -76,7 +77,7 @@ class ActionColumn extends \kartik\grid\ActionColumn
                 'aria-hidden' => 'true',
             ]);
 
-            $link = Yii::$app->material->helperHtml::a($label, $url, $options);
+            $link = Html::a($label, $url, $options);
 
             if ($this->_isDropdown) {
                 $options['tabindex'] = '-1';
@@ -111,7 +112,7 @@ class ActionColumn extends \kartik\grid\ActionColumn
         }
         $tag = ArrayHelper::remove($iconOptions, 'tag', 'span');
         $iconType = ArrayHelper::remove($iconOptions, 'icon');
-        return Yii::$app->material->helperHtml::tag($tag, $iconType, $iconOptions);
+        return Html::tag($tag, $iconType, $iconOptions);
     }
 
     /**

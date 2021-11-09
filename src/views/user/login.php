@@ -1,5 +1,6 @@
 <?php
 
+use vasadibt\materialdashboard\helpers\Html;
 use vasadibt\materialdashboard\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
@@ -25,7 +26,7 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
             <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
                 <div class="card card-login card-hidden">
                     <div class="card-header card-header-info text-center">
-                        <h4 class="card-title"><?= Yii::$app->material->helperHtml::encode($this->title) ?></h4>
+                        <h4 class="card-title"><?= Html::encode($this->title) ?></h4>
                     </div>
                     <div class="card-body">
                         <?php $form = ActiveForm::begin(['id' => 'login-form']) ?>
@@ -43,14 +44,14 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
                             ->label(false) ?>
 
                         <div class="text-center py-1">
-                            <?= Yii::$app->material->helperHtml::a(Yii::t('materialdashboard', 'Forgot your password?'), ['/auth/forgot-password/reset-request'], [
+                            <?= Html::a(Yii::t('materialdashboard', 'Forgot your password?'), ['/auth/forgot-password/reset-request'], [
                                 'class' => 'btn-link',
                                 'tabindex' => '-1',
                             ]) ?>
                         </div>
 
                         <div class="my-3 text-center">
-                            <?= Yii::$app->material->helperHtml::submitButton(Yii::t('materialdashboard', 'Sign in'), ['class' => 'btn btn-info btn-sm btn-round']) ?>
+                            <?= Html::submitButton(Yii::t('materialdashboard', 'Sign in'), ['class' => 'btn btn-info btn-sm btn-round']) ?>
                         </div>
 
                         <?php ActiveForm::end() ?>

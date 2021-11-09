@@ -5,6 +5,8 @@
 /* @var $message string */
 /* @var $exception Exception */
 
+use vasadibt\materialdashboard\helpers\Html;
+
 $this->title = $name;
 $statusCode = $exception instanceof \yii\web\HttpException ? $exception->statusCode : 500;
 
@@ -18,7 +20,7 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
             <div class="col-md-12">
                 <h1 class="title"><?= $statusCode ?></h1>
                 <h2><?= Yii::t('materialdashboard', 'Ooooups! Looks like you got lost.')?> :(</h2>
-                <h4><?= nl2br(Yii::$app->material->helperHtml::encode($message)) ?></h4>
+                <h4><?= nl2br(Html::encode($message)) ?></h4>
                 <a href="<?= Yii::$app->user->getReturnUrl() ?>" class="btn btn-link btn-info"><?= Yii::t('materialdashboard', 'Go back')?></a>
             </div>
         </div>

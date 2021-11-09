@@ -3,6 +3,7 @@
 namespace vasadibt\materialdashboard\widgets;
 
 use vasadibt\materialdashboard\assets\MaterialAsset;
+use vasadibt\materialdashboard\helpers\Html;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -121,7 +122,7 @@ HTML;
             if ($i === $n - 1 && $this->lastItemCssClass !== null) {
                 $class[] = $this->lastItemCssClass;
             }
-            Yii::$app->material->helperHtml::addCssClass($options, $class);
+            Html::addCssClass($options, $class);
 
             $menu = $this->renderItem($item);
 
@@ -139,7 +140,7 @@ HTML;
                 ]);
             }
 
-            $lines[] = Yii::$app->material->helperHtml::tag($tag, $menu, $options);
+            $lines[] = Html::tag($tag, $menu, $options);
         }
         return implode("\n", $lines);
     }
@@ -158,7 +159,7 @@ HTML;
                 $item['label'] = '';
             }
             $encodeLabel = isset($item['encode']) ? $item['encode'] : $this->encodeLabels;
-            $items[$i]['label'] = $encodeLabel ? Yii::$app->material->helperHtml::encode($item['label']) : $item['label'];
+            $items[$i]['label'] = $encodeLabel ? Html::encode($item['label']) : $item['label'];
             $items[$i]['icon'] = isset($item['icon']) ? $item['icon'] : '';
             $hasActiveChild = false;
             if (isset($item['items'])) {

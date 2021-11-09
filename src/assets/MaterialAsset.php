@@ -10,12 +10,12 @@ use yii\web\AssetBundle as BaseMaterialAsset;
  */
 class MaterialAsset extends BaseMaterialAsset
 {
-    public $sourcePath = '@vasadibt/materialdashboard/assets/material';
+    public $sourcePath = '@vasadibt/materialdashboard/assets/material-new';
 
     public $css = [
         'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons',
         'https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css',
-        'css/material-dashboard.min.css',
+        'css/material-dashboard.css',
         'css/custom.css',
     ];
 
@@ -23,6 +23,7 @@ class MaterialAsset extends BaseMaterialAsset
         'js/popper.min.js',
         'js/bootstrap-material-design.min.js',
         'js/material-dashboard.min.js',
+        'js/materialdashboard-fileinput.js',
         'js/custom.js',
     ];
 

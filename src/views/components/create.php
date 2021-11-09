@@ -9,9 +9,9 @@
     <div class="col-xl-8 offset-xl-2">
         <div class="card">
             <div class="card-header card-header-icon">
-                <div class="card-icon d-none d-sm-block"><?= Yii::$app->material->helperHtml::icon('assignment') ?></div>
-                <h4 class="card-title d-inline-block"><?= Yii::$app->material->helperHtml::encode($this->title) ?></h4>
-                <div class="float-right"><?= Yii::$app->material->helperButton::back() ?></div>
+                <div class="card-icon d-none d-sm-block"><?= \vasadibt\materialdashboard\helpers\Html::icon('assignment') ?></div>
+                <h4 class="card-title d-inline-block"><?= \vasadibt\materialdashboard\helpers\Html::encode($this->title) ?></h4>
+                <div class="float-right"><?= Yii::$app->material->back() ?></div>
             </div>
             <div class="card-body">
                 <?= $form ?>

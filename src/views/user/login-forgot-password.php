@@ -1,5 +1,6 @@
 <?php
 
+use vasadibt\materialdashboard\helpers\Html;
 use vasadibt\materialdashboard\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
@@ -37,7 +38,7 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
             <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
                 <div class="card card-login card-hidden">
                     <div class="card-header card-header-info text-center">
-                        <h4 class="card-title"><?= Yii::$app->material->helperHtml::encode($this->title) ?></h4>
+                        <h4 class="card-title"><?= Html::encode($this->title) ?></h4>
                     </div>
                     <div class="card-body">
                         <?php $form = ActiveForm::begin(['id' => 'login-form']) ?>
@@ -54,12 +55,12 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
                             ->label(false) ?>
 
                         <div class="row justify-content-between m-0 mt-3 mb-3">
-                            <?= Yii::$app->material->helperHtml::button(Yii::t('materialdashboard', 'Forgot your password?'), [
+                            <?= Html::button(Yii::t('materialdashboard', 'Forgot your password?'), [
                                 'class' => 'btn-link forgot-pass-btn',
                                 'tabindex' => '-1',
                                 'style' => 'border: none'
                             ]) ?>
-                            <?= Yii::$app->material->helperHtml::submitButton(Yii::t('materialdashboard', 'Sign in'), ['class' => 'btn btn-info btn-sm btn-round']) ?>
+                            <?= Html::submitButton(Yii::t('materialdashboard', 'Sign in'), ['class' => 'btn btn-info btn-sm btn-round']) ?>
                         </div>
                         <?php ActiveForm::end() ?>
 
@@ -70,8 +71,8 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
                             ->prepend(['content' => '<i class="material-icons">email</i>'])
                             ->label(false) ?>
                         <div class="row justify-content-between m-0 mt-3 mb-3">
-                            <?= Yii::$app->material->helperHtml::button(Yii::t('materialdashboard', 'Back to login'), ['class' => 'btn btn-warning btn-sm btn-round back-to-login']) ?>
-                            <?= Yii::$app->material->helperHtml::submitButton(Yii::t('materialdashboard', 'Send email'), ['class' => 'btn btn-info btn-sm btn-round']) ?>
+                            <?= Html::button(Yii::t('materialdashboard', 'Back to login'), ['class' => 'btn btn-warning btn-sm btn-round back-to-login']) ?>
+                            <?= Html::submitButton(Yii::t('materialdashboard', 'Send email'), ['class' => 'btn btn-info btn-sm btn-round']) ?>
                         </div>
                         <?php ActiveForm::end() ?>
                     </div>

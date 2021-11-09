@@ -67,7 +67,7 @@ class Material extends Component implements BootstrapInterface
      * @param object $model
      * @return string
      */
-    public function modelTitle(object $model)
+    public function modelTitle($model)
     {
         return $model instanceof ModelTitleizeInterface
             ? $model::title()
@@ -78,7 +78,7 @@ class Material extends Component implements BootstrapInterface
      * @param object $model
      * @return string
      */
-    public function modelTitleList(object $model)
+    public function modelTitleList($model)
     {
         return $model instanceof ModelTitleizeInterface
             ? $model::titleList()
@@ -101,7 +101,7 @@ class Material extends Component implements BootstrapInterface
      * @return string
      * @throws \Exception
      */
-    public function create(object $model, array $config = [])
+    public function create($model, array $config = [])
     {
         $config['model'] = $model;
         return Create::widget($config);

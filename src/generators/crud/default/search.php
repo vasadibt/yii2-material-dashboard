@@ -114,9 +114,9 @@ class <?= $searchModelClass ?> extends <?= $modelClass ?> implements <?= StringH
         $query->andFilterWhere(['AND',
 <?php foreach($generator->getSearchConditions() as $column => $type): ?>
 <?php if ($type == $generator::SIMPLE): ?>
-            ['<?= $column ?>' => $this-><?= $column ?>],
+            ['<?= $generator->getTableSchema()->name ?>.<?= $column ?>' => $this-><?= $column ?>],
 <?php else: ?>
-            ['<?= $type ?>', '<?= $column ?>', $this-><?= $column ?>],
+            ['<?= $type ?>', '<?= $generator->getTableSchema()->name ?>.<?= $column ?>', $this-><?= $column ?>],
 <?php endif; ?>
 <?php endforeach ?>
         ]);

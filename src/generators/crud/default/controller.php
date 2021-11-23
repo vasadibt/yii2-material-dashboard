@@ -79,7 +79,7 @@ class <?= StringHelper::basename($generator->controllerClass) ?> extends <?= Str
 
         if ($model->load($request->post())) {
             if ($model->save()) {
-                Yii::$app->session->setFlash('success', 'Sikeresen létrehozta az elemet!');
+                Yii::$app->session->setFlash('success', <?= $generator->generateString('Item successfully created!') ?>);
                 return $this->redirect(array_merge(['update'], $model->getPrimaryKey(true)));
             }
         }
@@ -101,7 +101,7 @@ class <?= StringHelper::basename($generator->controllerClass) ?> extends <?= Str
 
         if ($model->load($request->post())) {
             if ($model->save()) {
-                Yii::$app->session->setFlash('success', 'Sikeresen módosította az elemet!');
+                Yii::$app->session->setFlash('success', <?= $generator->generateString('You have successfully modified the item!') ?>);
                 return $this->redirect(array_merge(['update'], $model->getPrimaryKey(true)));
             }
         }
@@ -120,7 +120,7 @@ class <?= StringHelper::basename($generator->controllerClass) ?> extends <?= Str
     public function actionDelete(Request $request)
     {
         $this->findModel($request)->delete();
-        Yii::$app->session->setFlash('success', 'Sikeresen eltávolította az elemet!');
+        Yii::$app->session->setFlash('success', <?= $generator->generateString('You have successfully removed the item!') ?>);
         return $this->redirect(['index']);
     }
 

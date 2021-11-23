@@ -15,7 +15,7 @@ use <?= $generator->cardWidgetClass ?>;
 /** @var <?= ltrim($generator->modelClass, '\\') ?> $model */
 
 $this->params['breadcrumbs'][] = ['label' => $model::title(), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ($this->title = sprintf('%s módosítása', $model::title()));
+$this->params['breadcrumbs'][] = ($this->title = sprintf(<?= $generator->generateString('%s modify')?>, $model::title()));
 
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-update">

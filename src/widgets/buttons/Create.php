@@ -3,7 +3,6 @@
 namespace vasadibt\materialdashboard\widgets\buttons;
 
 use vasadibt\materialdashboard\interfaces\ModelTitleizeInterface;
-use Yii;
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 

@@ -21,6 +21,7 @@ class ActiveField extends KartikActiveField
     public $options = ['class' => ['widget' => 'form-group bmd-form-group']];
 
     public $labelSpan = 3;
+    public $wrapperOptions = ['class' => 'form-group'];
     public $deviceSize = ActiveForm::SIZE_SMALL;
 
     public $checkTemplate = <<< HTML

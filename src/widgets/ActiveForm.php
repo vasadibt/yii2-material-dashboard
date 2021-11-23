@@ -14,6 +14,7 @@ use yii\helpers\ArrayHelper;
  */
 class ActiveForm extends KartikActiveForm
 {
+    public $type = \kartik\form\ActiveForm::TYPE_HORIZONTAL;
     /**
      * @var string the default field class name when calling [[field()]] to create a new field.
      * @see fieldConfig

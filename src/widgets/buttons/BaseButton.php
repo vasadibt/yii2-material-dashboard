@@ -16,7 +16,7 @@ class BaseButton extends Widget
     /**
      * @var string
      */
-    public $content = '<{{tag}}{{options}}>{{iconTemplate}}<span class="d-none d-md-inline"> {{title}}</span>{{ripple}}</{{tag}}>';
+    public $content = '<{{tag}}{{options}}>{{iconTemplate}}<span class="d-none d-md-inline">{{title}}</span>{{ripple}}</{{tag}}>';
     /**
      * @var string
      */
@@ -24,7 +24,7 @@ class BaseButton extends Widget
     /**
      * @var string
      */
-    public $iconTemplate = '<span class="material-icons">{{icon}}</span>';
+    public $iconTemplate = '<span class="material-icons mr-lg-2 mr-md-2">{{icon}}</span>';
     /**
      * @var string
      */

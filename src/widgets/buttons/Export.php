@@ -2,7 +2,6 @@
 
 namespace vasadibt\materialdashboard\widgets\buttons;
 
-use vasadibt\materialdashboard\components\MaterialButton;
 use Yii;
 
 class Export extends BaseButton

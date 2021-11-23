@@ -17,11 +17,7 @@ use <?= $generator->activeFormClass ?>;
 
 ?>
 <div class="crud-model-form">
-    <?= '<?php ' ?>$form = <?= StringHelper::basename($generator->activeFormClass) ?>::begin([
-        'options' => ['class' => 'warn-lose-changes'],
-        'type' => <?= StringHelper::basename($generator->activeFormClass) ?>::TYPE_HORIZONTAL,
-        'fieldConfig' => ['labelSpan' => 3, 'wrapperOptions' => ['class' => 'form-group']],
-    ]) ?>
+    <?= '<?php ' ?>$form = <?= StringHelper::basename($generator->activeFormClass) ?>::begin(['options' => ['class' => 'warn-lose-changes']]) ?>
     <?= '<?= ' ?><?= StringHelper::basename($generator->formBuilderClass) ?>::widget([
         'form' => $form,
         'model' => $model,

@@ -9,19 +9,20 @@ use yii\helpers\StringHelper;
 echo "<?php\n";
 ?>
 
-use <?= $generator->formBuilderClass ?>;
-use <?= $generator->htmlHelperClass ?>;
-use <?= $generator->activeFormClass ?>;
+use <?= $generator->cardWidgetClass ?>;
 
 /** @var yii\web\View $this */
 /** @var <?= ltrim($generator->modelClass, '\\') ?> $model */
 
-$this->params['breadcrumbs'][] = ['label' => Yii::$app->material->modelTitleList($model), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ($this->title = sprintf('Új %s létrehozása', Yii::$app->material->modelTitle($model)));
+$this->params['breadcrumbs'][] = ['label' => $model::titleList(), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ($this->title = sprintf('Új %s létrehozása', $model::title()));
 
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-create">
-    <?= '<?= ' ?>$this->render('@app/views/components/create', [
-        'form' => $this->render('_form', compact('model')),
+    <?= '<?= ' ?><?= StringHelper::basename($generator->cardWidgetClass) ?>::widget([
+        'icon' => 'assignment',
+        'title' => $this->title,
+        'buttons' => Yii::$app->material->back(),
+        'body' => $this->render('_form', compact('model'))
     ]) ?>
 </div>

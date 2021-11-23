@@ -1,11 +1,9 @@
 <?php
 
-
 namespace vasadibt\materialdashboard\interfaces;
 
-
 use yii\data\DataProviderInterface;
-use yii\db\ActiveQueryInterface;
+use yii\db\QueryInterface;
 use yii\web\Request;
 
 /**
@@ -26,8 +24,8 @@ interface SearchModelInterface
     public function getDataProvider(): DataProviderInterface;
 
     /**
-     * @param ActiveQueryInterface $query
+     * @param QueryInterface $query
      * @return $this
      */
-    public function filterQuery($query): self;
+    public function filterQuery(QueryInterface $query): self;
 }

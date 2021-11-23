@@ -28,11 +28,14 @@ class Generator extends GiiCrudGenerator
     public $messageCategory = 'materialdashboard';
 
     public $htmlHelperClass = 'vasadibt\materialdashboard\helpers\Html';
-    public $buttonHelperClass = 'vasadibt\materialdashboard\helpers\Button';
     public $activeFormClass = 'vasadibt\materialdashboard\widgets\ActiveForm';
     public $gridViewClass = 'vasadibt\materialdashboard\grid\GridView';
     public $formBuilderClass = 'kartik\builder\Form';
+    public $cardWidgetClass = 'vasadibt\materialdashboard\widgets\Card';
+
+
     public $searchModelInterface = 'vasadibt\materialdashboard\interfaces\SearchModelInterface';
+    public $searchModelTrait = 'vasadibt\materialdashboard\traits\SearchModelTrait';
     public $spreadsheetBuilder = 'yii2tech\spreadsheet\Spreadsheet';
 
     public $skipGridFields = ['created_at', 'updated_at', 'deleted_at', 'last_login', 'created_by', 'updated_by'];

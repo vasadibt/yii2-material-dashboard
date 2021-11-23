@@ -61,8 +61,7 @@ class <?= StringHelper::basename($generator->controllerClass) ?> extends <?= Str
      */
     public function actionIndex(Request $request)
     {
-        $searchModel = new <?= StringHelper::basename($generator->searchModelClass) ?>();
-        $searchModel->search($request);
+        $searchModel = <?= StringHelper::basename($generator->searchModelClass) ?>::createByRequest($request);
         return $this->render('index', compact('searchModel'));
     }
 
@@ -131,9 +130,7 @@ class <?= StringHelper::basename($generator->controllerClass) ?> extends <?= Str
      */
     public function actionExport(Request $request)
     {
-        $searchModel = new <?= StringHelper::basename($generator->searchModelClass) ?>(['pagination' => false]);
-        $searchModel->search($request);
-
+        $searchModel = <?= StringHelper::basename($generator->searchModelClass) ?>::createByRequest($request, ['pagination' => false]);
         $exporter = new <?= StringHelper::basename($generator->spreadsheetBuilder) ?>([
             'dataProvider' => $searchModel->getDataProvider(),
             'columns' => [
@@ -143,7 +140,7 @@ class <?= StringHelper::basename($generator->controllerClass) ?> extends <?= Str
             ],
         ]);
 
-        return $exporter->send(sprintf('%s-export_%s.xls', Inflector::slug(Yii::$app->material->modelTitle($searchModel)), date('Y_m_d-H_i_s')));
+        return $exporter->send(sprintf('%s-export_%s.xls', Inflector::slug($searchModel::title()), date('Y_m_d-H_i_s')));
     }
 
     /**

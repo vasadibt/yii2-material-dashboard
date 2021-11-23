@@ -7,7 +7,7 @@ use Yii;
 class Export extends BaseButton
 {
     public $tag = 'a';
-    public $title = 'Excel exportálás';
+    public $title;
     public $icon = 'file_download';
     protected $_options = [
         'class' => [
@@ -22,6 +22,9 @@ class Export extends BaseButton
         parent::init();
         if (empty($this->url)) {
             $this->url = array_merge(['export'], Yii::$app->request->getQueryParams());
+        }
+        if ($this->title === null) {
+            $this->title = Yii::t('materialdashboard', 'Excel export');
         }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace vasadibt\materialdashboard\widgets\buttons;
 
+use Yii;
 use yii\db\ActiveRecordInterface;
 
 class Delete extends BaseButton
@@ -11,7 +12,7 @@ class Delete extends BaseButton
      * @var ActiveRecordInterface
      */
     public $model;
-    public $title = 'Törlés';
+    public $title;
     public $icon = 'delete';
 
     protected $_options = [
@@ -24,7 +25,7 @@ class Delete extends BaseButton
         ],
         'data' => [
             'method' => 'post',
-            'confirm' => 'Biztos törölni szeretnéd ezt a tételt?',
+            'confirm' => null,
         ],
     ];
 
@@ -34,5 +35,14 @@ class Delete extends BaseButton
         if (empty($this->url) && $this->model) {
             $this->url = array_merge(['delete'], $this->model->getPrimaryKey(true));
         }
+
+        if ($this->title === null) {
+            $this->title = Yii::t('materialdashboard', 'Delete');
+        }
+
+        if (!isset($this->_options['data']['confirm'])) {
+            $this->_options['data']['confirm'] = Yii::t('materialdashboard', 'Are you sure you want to delete this item?');
+        }
+
     }
 }

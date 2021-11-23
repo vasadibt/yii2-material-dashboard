@@ -7,7 +7,7 @@ use Yii;
 class Back extends BaseButton
 {
     public $tag = 'a';
-    public $title = 'Vissza';
+    public $title;
     public $icon = 'keyboard_arrow_left';
     protected $_options = [
         'class' => [
@@ -25,11 +25,13 @@ class Back extends BaseButton
     public function init()
     {
         parent::init();
-        if(empty($this->url)){
+        if (empty($this->url)) {
             $this->url = Yii::$app->request->referrer ?? ['index'];
         }
+        if ($this->title === null) {
+            $this->title = Yii::t('materialdashboard', 'Back');
+        }
     }
-
 
 
 }

@@ -12,7 +12,7 @@ class Reset extends BaseButton
      * @var Model
      */
     public $filterModel;
-    public $title = 'Szűrések törlése';
+    public $title;
     public $icon = 'zoom_out';
     protected $_options = [
         'class' => [
@@ -34,6 +34,10 @@ class Reset extends BaseButton
                 $params = array_intersect_key($params, array_flip(['per-page', 'sort']));
             }
             $this->url = array_merge([''], $params);
+        }
+
+        if ($this->title === null) {
+            $this->title = Yii::t('materialdashboard', 'Reset filters');
         }
     }
 }

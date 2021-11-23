@@ -2,7 +2,10 @@
 
 namespace vasadibt\materialdashboard\widgets\buttons;
 
+use vasadibt\materialdashboard\interfaces\ModelTitleizeInterface;
 use Yii;
+use yii\helpers\Inflector;
+use yii\helpers\StringHelper;
 
 class Create extends BaseButton
 {
@@ -26,9 +29,15 @@ class Create extends BaseButton
     public function init()
     {
         parent::init();
-        if(empty($this->url)){
+
+        if($this->url === null){
             $this->url = ['create'];
         }
-        $this->modelTitle = $this->material->modelTitle($this->model);
+
+        if($this->modelTitle === null && $this->model){
+            $this->modelTitle = $this->model instanceof ModelTitleizeInterface
+                ? $this->model::title()
+                : Inflector::titleize(Inflector::camel2words(StringHelper::basename(get_class($this->model))));
+        }
     }
 }

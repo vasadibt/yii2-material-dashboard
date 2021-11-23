@@ -2,10 +2,8 @@
 
 namespace vasadibt\materialdashboard\widgets\buttons;
 
-use vasadibt\materialdashboard\components\Material;
 use vasadibt\materialdashboard\helpers\Html;
 use yii\base\Widget;
-use yii\di\Instance;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
@@ -16,39 +14,40 @@ use yii\helpers\Url;
 class BaseButton extends Widget
 {
     /**
-     * @var string|Material
-     */
-    public $material = 'material';
-    /**
      * @var string
      */
     public $content = '<{{tag}}{{options}}>{{iconTemplate}}<span class="d-none d-md-inline"> {{title}}</span>{{ripple}}</{{tag}}>';
+    /**
+     * @var string
+     */
     public $tag = 'button';
+    /**
+     * @var string
+     */
     public $iconTemplate = '<span class="material-icons">{{icon}}</span>';
+    /**
+     * @var string
+     */
+    public $icon;
+    /**
+     * @var string
+     */
     public $ripple = '<div class="ripple-container"></div>';
-
-    protected $_options = [];
-
+    /**
+     * @var string
+     */
+    public $title;
     /**
      * @var array
      */
-    protected $title = [];
-
-    /**
-     * {@inheritdoc }
-     */
-    public function init()
-    {
-        parent::init();
-        $this->material = Instance::ensure($this->material, Material::class);
-    }
+    protected $_options = [];
 
     /**
      * {@inheritDoc}
      */
     public function run()
     {
-        return $this->renderTemplate($this->content, $this);
+        return $this->renderTemplate($this->content);
     }
 
     /**

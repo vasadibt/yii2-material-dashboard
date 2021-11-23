@@ -6,8 +6,6 @@ use yii\db\ActiveRecordInterface;
 
 class Submit extends BaseButton
 {
-    public $tag = 'button';
-
     /**
      * @var ActiveRecordInterface
      */
@@ -29,7 +27,11 @@ class Submit extends BaseButton
     {
         parent::init();
         if($this->title === null){
-            $this->title =  $this->model && $this->model->isNewRecord ? $this->createTitle : $this->updateTitle;
+            if ($this->model && $this->model->isNewRecord) {
+                $this->title = $this->createTitle;
+            } else {
+                $this->title = $this->updateTitle;
+            }
         }
     }
 }

@@ -32,7 +32,10 @@ class Card extends Widget
     protected $attributeMap = [
         'containerOptions' => '_containerOptions',
         'headerOptions' => '_headerOptions',
+        'iconContainerOptions' => '_iconContainerOptions',
+        'iconOptions' => '_iconOptions',
         'titleOptions' => '_titleOptions',
+        'buttonOptions' => '_buttonOptions',
         'bodyOptions' => '_bodyOptions',
         'footerOptions' => '_footerOptions',
     ];
@@ -106,7 +109,7 @@ class Card extends Widget
             $out .= Html::beginTag('div', $this->_headerOptions);
 
             if (!empty($this->icon)) {
-                $iconTag = ArrayHelper::remove($this->_iconOptions, 'tag', 'span');
+                $iconTag = ArrayHelper::remove($this->_iconOptions, 'tag', 'i');
                 $out .= Html::tag(
                     'div',
                     Html::tag($iconTag, $this->icon, $this->_iconOptions),
@@ -131,7 +134,7 @@ class Card extends Widget
 
         /** footer */
         if (isset($this->footer)) {
-            $out .= Html::tag('div', $this->footer, $this->_footerOptions);
+            $out .= Html::tag('div', is_array($this->footer) ? join($this->footer) : $this->footer, $this->_footerOptions);
         }
         $out .= Html::endTag('div');
         return $out;

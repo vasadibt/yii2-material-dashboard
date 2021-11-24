@@ -2,11 +2,49 @@
 
 namespace vasadibt\materialdashboard\helpers;
 
+use Yii;
 use yii\data\DataProviderInterface;
 use yii\helpers\ArrayHelper;
+use yii\web\User;
 
 class Html extends \yii\bootstrap4\Html
 {
+    /**
+     * Options add permission checker
+     * Permission can be
+     *  - callable
+     *  - array  -> [permissionName, option => value ... etc],
+     *  - string -> the permission name
+     *
+     * @param bool|string|null $name
+     * @param string $content
+     * @param array $options
+     * @return false|mixed|string
+     */
+    public static function tag($name, $content = '', $options = [])
+    {
+        /** @var User $user */
+        if (
+            ($permission = ArrayHelper::remove($options, 'permission'))
+            && ($user = Yii::$app->get('user', false))
+        ) {
+            if (is_callable($permission)) {
+                $hasPermission = call_user_func($permission, $user, $options, $content, $name);
+            }elseif (is_array($permission)) {
+                $name = array_shift($permission);
+                $hasPermission =  call_user_func([$user, 'can'], $name, $permission);
+            } else {
+                $hasPermission =  $user->can($permission);
+            }
+
+            if(!$hasPermission){
+                return '';
+            }
+        }
+
+        return parent::tag($name, $content, $options);
+    }
+
     /**
      * @return string
      */

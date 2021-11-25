@@ -1,6 +1,6 @@
 <?php
 
-namespace vasadibt\materialdashboard\widgets\buttons;
+namespace vasadibt\materialdashboard\widgets\buttons\fabs;
 
 use Yii;
 

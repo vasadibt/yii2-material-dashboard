@@ -208,11 +208,10 @@ class Button extends BaseWidget
     }
 
     /**
-     * @param $message
      * @param null $default
      * @return mixed|null
      */
-    public function getConfirm($message, $default = null)
+    public function getConfirm($default = null)
     {
         return $this->getData('confirm', $default);
     }

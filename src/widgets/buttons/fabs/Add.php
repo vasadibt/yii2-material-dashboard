@@ -1,6 +1,6 @@
 <?php
 
-namespace vasadibt\materialdashboard\widgets\buttons;
+namespace vasadibt\materialdashboard\widgets\buttons\fabs;
 
 use Yii;
 
@@ -8,7 +8,6 @@ class Add extends Fab
 {
     public $icon = 'add';
     public $optionType = 'btn-success';
-    public $optionBorder = 'btn-round';
 
     public function init()
     {

@@ -1,15 +1,14 @@
 <?php
 
-namespace vasadibt\materialdashboard\widgets\buttons;
+namespace vasadibt\materialdashboard\widgets\buttons\fabs;
 
 use Yii;
 use yii\db\ActiveRecordInterface;
 
-class Delete extends Link
+class Delete extends Fab
 {
     public $icon = 'delete';
     public $optionType = 'btn-danger';
-    public $optionStyle = 'btn-round';
     /**
      * @var ActiveRecordInterface
      */
@@ -18,16 +17,17 @@ class Delete extends Link
     public function init()
     {
         parent::init();
+
         if (empty($this->url) && $this->model) {
             $this->url = array_merge(['delete'], $this->model->getPrimaryKey(true));
         }
 
-        if ($this->title === null) {
-            $this->title = Yii::t('materialdashboard', 'Delete');
+        if ($this->tooltip === null) {
+            $this->tooltip = Yii::t('materialdashboard', 'Delete');
         }
 
-        if(empty($this->getConfirm())){
-            $this->setConfirm(Yii::t('materialdashboard', 'Are you sure you want to delete this item?'));
+        if (empty($this->confirm)) {
+            $this->confirm = Yii::t('materialdashboard', 'Are you sure you want to delete this item?');
         }
     }
 }

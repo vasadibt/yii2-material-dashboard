@@ -61,7 +61,7 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
                     ->label(false) ?>
 
                 <div class="row justify-content-between m-0 mt-3 mb-3">
-                    <?= Button::widget(['title' => Yii::t('materialdashboard', 'Forgot your password?'), 'options' => ['tabindex' => '-1', 'class' => ['id' => 'forgot-pass-btn']], 'optionType' => 'btn-link']) ?>
+                    <?= Button::widget(['title' => Yii::t('materialdashboard', 'Forgot your password?'), 'options' => ['tabindex' => '-1', 'class' => ['id' => 'forgot-pass-btn'], 'type' => 'button'], 'optionType' => 'btn-link']) ?>
                     <?= Submit::widget(['icon' => 'login', 'title' => Yii::t('materialdashboard', 'Sign in')]) ?>
                 </div>
                 <?php ActiveForm::end() ?>
@@ -73,7 +73,7 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
                     ->label(false) ?>
 
                 <div class="row justify-content-between m-0 mt-3 mb-3">
-                    <?= Button::widget(['title' => Yii::t('materialdashboard', 'Back to login'), 'options' => ['class' => ['id' => 'back-to-login']]]) ?>
+                    <?= Button::widget(['title' => Yii::t('materialdashboard', 'Back to login'), 'options' => ['class' => ['id' => 'back-to-login'], 'type' => 'button']]) ?>
                     <?= Submit::widget(['icon' => 'send', 'title' => Yii::t('materialdashboard', 'Send email')]) ?>
                 </div>
                 <?php ActiveForm::end() ?>

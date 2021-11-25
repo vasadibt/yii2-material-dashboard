@@ -11,6 +11,7 @@ use yii\helpers\Url;
  * @property array $options
  * @property string $url
  * @property string $pjax
+ * @property string $confirm
  */
 class Button extends BaseWidget
 {
@@ -150,6 +151,20 @@ class Button extends BaseWidget
     }
 
     /**
+     * @param $name
+     * @param null $default
+     * @return mixed|null
+     */
+    public function getData($name, $default = null)
+    {
+        if(isset($this->_options['data']) && array_key_exists($name, $this->_options['data'])){
+            return $this->_options['data'][$name];
+        }
+
+        return $default;
+    }
+
+    /**
      * @param null $attribute
      * @return mixed
      */
@@ -175,9 +190,31 @@ class Button extends BaseWidget
         $this->spinner = is_bool($spinner) ? ($spinner ? static::SPINNER_TEMPLATE : '') : $spinner;
     }
 
+    /**
+     * @param $pjax
+     */
     public function setPjax($pjax)
     {
         $this->setData('pjax', $pjax);
+    }
+
+    /**
+     * @param $message
+     */
+    public function setConfirm($message)
+    {
+        $this->setData('method', 'post');
+        $this->setData('confirm', $message);
+    }
+
+    /**
+     * @param $message
+     * @param null $default
+     * @return mixed|null
+     */
+    public function getConfirm($message, $default = null)
+    {
+        return $this->getData('confirm', $default);
     }
 
     /**

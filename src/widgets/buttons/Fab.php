@@ -13,8 +13,8 @@ class Fab extends Link
     {
         parent::init();
 
-        if ($this->title === null) {
-            $this->title = Yii::t('materialdashboard', 'More');
+        if ($this->tooltip === null) {
+            $this->tooltip = Yii::t('materialdashboard', 'More');
         }
     }
 }

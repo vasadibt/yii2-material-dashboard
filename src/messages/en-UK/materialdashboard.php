@@ -35,6 +35,7 @@ return [
     'Locked account' => 'Locked account',
     'Log out' => 'Log out',
     'Login' => 'Login',
+    'New {model} create' => 'New {model} create',
     'New {{modelTitle}}' => 'New {{modelTitle}}',
     'Next' => 'Next',
     'No' => 'No',
@@ -51,6 +52,6 @@ return [
     'You have successfully modified the item!' => 'You have successfully modified the item!',
     'You have successfully removed the item!' => 'You have successfully removed the item!',
     'item' => 'item',
-    'New {model} create' => 'New {model} create',
     '{model} edit' => '{model} edit',
+    'More' => 'More',
 ];

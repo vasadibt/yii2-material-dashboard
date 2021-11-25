@@ -10,21 +10,20 @@ use yii\helpers\Url;
 /**
  * @property array $options
  * @property string $url
- * @property string $tooltip
  * @property string $pjax
  */
 class Button extends BaseWidget
 {
     const SPINNER_TEMPLATE = '<span class="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true"></span>';
 
-    const TEMPLATE_ICON = '<{{tag}}{{options}}>{{iconTemplate}}{{spinner}}{{ripple}}</{{tag}}>';
-    const TEMPLATE_ICON_TITLE = '<{{tag}}{{options}}>{{iconTemplate}}<span class="d-none d-md-inline ml-1">{{title}}</span>{{spinner}}{{ripple}}</{{tag}}>';
-    const TEMPLATE_TITLE = '<{{tag}}{{options}}>{{title}}{{spinner}}{{ripple}}</{{tag}}>';
+    const TEMPLATE_ICON = '<{{tag}}{{options}}>{{iconTemplate}}{{spinner}}</{{tag}}>';
+    const TEMPLATE_ICON_TITLE = '<{{tag}}{{options}}>{{iconTemplate}}<span class="d-none d-md-inline ml-1">{{title}}</span>{{spinner}}</{{tag}}>';
+    const TEMPLATE_TITLE = '<{{tag}}{{options}}>{{title}}{{spinner}}</{{tag}}>';
 
     /**
      * @var string
      */
-    public $template = self::TEMPLATE_ICON_TITLE;
+    public $template;
     /**
      * @var string
      */
@@ -44,10 +43,6 @@ class Button extends BaseWidget
     /**
      * @var string
      */
-    public $ripple = '<div class="ripple-container"></div>';
-    /**
-     * @var string
-     */
     public $title;
     /**
      * @var array
@@ -57,16 +52,23 @@ class Button extends BaseWidget
             'widget' => '{{optionWidget}}',
             'size' => '{{optionSize}}',
             'type' => '{{optionType}}',
+            'border' => '{{optionBorder}}',
             'style' => '{{optionStyle}}',
             'position' => '{{optionPosition}}'
         ],
+        'rel' => 'tooltip',
+        'title' => '{{tooltip}}',
+        'data-original-title' => '{{tooltip}}',
     ];
 
     public $optionWidget = 'btn';
     public $optionSize = 'btn-sm';
     public $optionType = 'btn-info';
-    public $optionStyle = '';
-    public $optionPosition = '';
+    public $optionBorder = ''; // btn-round
+    public $optionStyle = ''; // btn-fab
+    public $optionPosition = ''; // mt-3
+
+    public $tooltip;
 
 
     /**
@@ -173,22 +175,6 @@ class Button extends BaseWidget
         $this->spinner = is_bool($spinner) ? ($spinner ? static::SPINNER_TEMPLATE : '') : $spinner;
     }
 
-    /**
-     * @param string $tooltip
-     */
-    public function setTooltip($tooltip)
-    {
-        if ($tooltip === false || $tooltip === '') {
-            unset($this->_options['rel']);
-            unset($this->_options['title']);
-            unset($this->_options['data-original-title']);
-        } else {
-            $this->_options['rel'] = 'tooltip';
-            $this->_options['title'] = $tooltip === true ? '{{title}}' : $tooltip;
-            $this->_options['data-original-title'] = $this->_options['title'];
-        }
-    }
-
     public function setPjax($pjax)
     {
         $this->setData('pjax', $pjax);
@@ -237,25 +223,5 @@ class Button extends BaseWidget
     public function optionsRender()
     {
         return Html::renderTagAttributes($this->options);
-    }
-
-    /**
-     * @return false|string
-     */
-    public function __toString()
-    {
-        ob_start();
-        ob_implicit_flush(false);
-        try {
-            $this->end();
-        } catch (\Exception $e) {
-            // close the output buffer opened above if it has not been closed already
-            if (ob_get_level() > 0) {
-                ob_end_clean();
-            }
-            throw $e;
-        }
-
-        return ob_get_clean();
     }
 }

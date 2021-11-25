@@ -51,6 +51,6 @@ return [
     'You have successfully modified the item!' => 'You have successfully modified the item!',
     'You have successfully removed the item!' => 'You have successfully removed the item!',
     'item' => 'tétel',
-    '%s modify' => '%s módosítása',
-    'New %s create' => 'Új %s létrehozása',
+    'New {model} create' => 'Új {model}',
+    '{model} edit' => '{model} szerkesztése',
 ];

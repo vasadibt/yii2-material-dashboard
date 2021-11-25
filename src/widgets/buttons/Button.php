@@ -3,7 +3,7 @@
 namespace vasadibt\materialdashboard\widgets\buttons;
 
 use vasadibt\materialdashboard\helpers\Html;
-use yii\base\Widget;
+use vasadibt\materialdashboard\widgets\BaseWidget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
@@ -11,20 +11,30 @@ use yii\helpers\Url;
  * @property array $options
  * @property string $url
  */
-class BaseButton extends Widget
+class Button extends BaseWidget
 {
+    const SPINNER_TEMPLATE = '<span class="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true"></span>';
+
+    const TEMPLATE_ICON = '<{{tag}}{{options}}>{{iconTemplate}}{{spinner}}{{ripple}}</{{tag}}>';
+    const TEMPLATE_ICON_TITLE = '<{{tag}}{{options}}>{{iconTemplate}}<span class="d-none d-md-inline ml-1">{{title}}</span>{{spinner}}{{ripple}}</{{tag}}>';
+    const TEMPLATE_TITLE = '<{{tag}}{{options}}>{{title}}{{spinner}}{{ripple}}</{{tag}}>';
+
     /**
      * @var string
      */
-    public $content = '<{{tag}}{{options}}>{{iconTemplate}}<span class="d-none d-md-inline">{{title}}</span>{{ripple}}</{{tag}}>';
+    public $template = self::TEMPLATE_ICON_TITLE;
     /**
      * @var string
      */
     public $tag = 'button';
     /**
+     *
+     */
+    protected $spinner;
+    /**
      * @var string
      */
-    public $iconTemplate = '<span class="material-icons mr-lg-2 mr-md-2">{{icon}}</span>';
+    public $iconTemplate = '<i class="material-icons">{{icon}}</i>';
     /**
      * @var string
      */
@@ -40,14 +50,43 @@ class BaseButton extends Widget
     /**
      * @var array
      */
-    protected $_options = [];
+    protected $_options = [
+        'class' => [
+            'widget' => '{{optionWidget}}',
+            'size' => '{{optionSize}}',
+            'type' => '{{optionType}}',
+            'style' => '{{optionStyle}}',
+            'position' => '{{optionPosition}}'
+        ],
+    ];
+
+    public $optionWidget = 'btn';
+    public $optionSize = 'btn-sm';
+    public $optionType = 'btn-info';
+    public $optionStyle = '';
+    public $optionPosition = '';
+
 
     /**
      * {@inheritDoc}
      */
     public function run()
     {
-        return $this->renderTemplate($this->content);
+        return $this->renderTemplate($this->template ?? $this->getAutoTemplate());
+    }
+
+    /**
+     * @return string
+     */
+    public function getAutoTemplate()
+    {
+        if (isset($this->icon) && isset($this->title)) {
+            return static::TEMPLATE_ICON_TITLE;
+        }
+        if (isset($this->icon)) {
+            return static::TEMPLATE_ICON;
+        }
+        return static::TEMPLATE_TITLE;
     }
 
     /**
@@ -116,6 +155,14 @@ class BaseButton extends Widget
     }
 
     /**
+     * @param bool|string $spinner
+     */
+    public function setSpinner($spinner)
+    {
+        $this->spinner = is_bool($spinner) ? ($spinner ? static::SPINNER_TEMPLATE : '') : $spinner;
+    }
+
+    /**
      * @param $template
      * @return array|mixed|string|string[]
      */
@@ -158,5 +205,25 @@ class BaseButton extends Widget
     public function optionsRender()
     {
         return Html::renderTagAttributes($this->options);
+    }
+
+    /**
+     * @return false|string
+     */
+    public function __toString()
+    {
+        ob_start();
+        ob_implicit_flush(false);
+        try {
+            $this->end();
+        } catch (\Exception $e) {
+            // close the output buffer opened above if it has not been closed already
+            if (ob_get_level() > 0) {
+                ob_end_clean();
+            }
+            throw $e;
+        }
+
+        return ob_get_clean();
     }
 }

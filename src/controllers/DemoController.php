@@ -18,8 +18,8 @@ class DemoController extends Controller
             Yii::t('materialdashboard', 'Item successfully created!'),
             Yii::t('materialdashboard', 'You have successfully modified the item!'),
             Yii::t('materialdashboard', 'You have successfully removed the item!'),
-            Yii::t('materialdashboard', 'New %s create'),
-            Yii::t('materialdashboard', '%s modify'),
+            Yii::t('materialdashboard', 'New {model} create'),
+            Yii::t('materialdashboard', '{model} edit'),
         ];
     }
 }

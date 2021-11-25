@@ -4,20 +4,12 @@ namespace vasadibt\materialdashboard\widgets\buttons;
 
 use Yii;
 
-class Back extends BaseButton
+class Back extends Link
 {
-    public $tag = 'a';
-    public $title;
     public $icon = 'keyboard_arrow_left';
-    protected $_options = [
-        'class' => [
-            'widget' => 'btn',
-            'size' => 'btn-sm',
-            'type' => 'btn-info',
-            'style' => 'btn-round',
-            'position' => 'mt-3'
-        ],
-    ];
+    public $title;
+    public $optionType = 'btn-info';
+    public $optionStyle = 'btn-round';
 
     /**
      * {@inheritDoc}

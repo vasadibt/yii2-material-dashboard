@@ -15,13 +15,14 @@ use kartik\form\ActiveField as KartikActiveField;
  */
 class ActiveField extends KartikActiveField
 {
+    use WidgetTrait;
     /**
      * {@inheritdoc}
      */
-    public $options = ['class' => ['widget' => 'form-group bmd-form-group']];
+    //public $options = ['class' => ['widget' => 'form-group bmd-form-group']];
 
     public $labelSpan = 3;
-    public $wrapperOptions = ['class' => 'form-group'];
+    //public $wrapperOptions = ['class' => 'form-group'];
     public $deviceSize = ActiveForm::SIZE_SMALL;
 
     public $checkTemplate = <<< HTML
@@ -147,77 +148,5 @@ HTML;
         Html::addCssClass($options, 'inputFileHidden');
 
         return parent::fileInput($options);
-    }
-
-    /**
-     * @param $part
-     * @param $content
-     * @return ActiveField
-     */
-    public function parts($part, $content)
-    {
-        $this->parts[$part] = $content;
-        return $this;
-    }
-
-    /**
-     * @param array|string|false $prepend
-     * @return ActiveField|void
-     */
-    public function prepend($prepend)
-    {
-        Html::addCssClass($this->options, 'input-prepend');
-
-        return $this->addon('prepend', $prepend);
-    }
-
-    /**
-     * @param array|string|false $append
-     * @return ActiveField|void
-     */
-    public function append($append)
-    {
-        return $this->addon('append', $append);
-    }
-
-    /**
-     * @param $type
-     * @param $addon
-     * @return ActiveField|void
-     */
-    public function addon($type, $addon)
-    {
-        $type = strtolower($type);
-
-        if (strpos($this->template, 'class="input-group"') === false) {
-            $this->template = str_replace('{input}', '<div class="input-group">{input}</div>', $this->template);
-        }
-
-        if (strpos($this->template, '{' . $type . '}') === false) {
-            $addonTemplate = '<div class="input-group-' . $type . '">{' . $type . '}</div>';
-            $template = $type == 'prepend' ? "$addonTemplate\n{input}" : "{input}\n$addonTemplate";
-            $this->template = str_replace('{input}', $template, $this->template);
-        }
-
-        if (!isset($this->parts['{' . $type . '}'])) {
-            $this->parts['{' . $type . '}'] = '';
-        }
-
-        if ($addon === false) {
-            $this->parts['{' . $type . '}'] = '';
-            return $this;
-        }
-
-        if (is_string($addon)) {
-            $this->parts['{' . $type . '}'] .= $addon;
-        } elseif (is_array($addon)) {
-            $tag = ArrayHelper::remove($addon, 'tag', 'span');
-            $options = ArrayHelper::remove($addon, 'options', []);
-            Html::addCssClass($options, 'input-group-text');
-            $content = ArrayHelper::remove($addon, 'content', '');
-            $this->parts['{' . $type . '}'] .= Html::tag($tag, $content, $options);
-        }
-
-        return $this;
     }
 }

@@ -51,6 +51,6 @@ return [
     'You have successfully modified the item!' => 'You have successfully modified the item!',
     'You have successfully removed the item!' => 'You have successfully removed the item!',
     'item' => 'item',
-    '%s modify' => '%s modify',
-    'New %s create' => 'New %s create',
+    'New {model} create' => 'New {model} create',
+    '{model} edit' => '{model} edit',
 ];

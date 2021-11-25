@@ -14,6 +14,8 @@ use yii\helpers\Url;
  */
 class Menu extends \yii\widgets\Menu
 {
+    use WidgetTrait;
+
     /**
      * @var string submenu id prefix
      */

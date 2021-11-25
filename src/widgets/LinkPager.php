@@ -12,6 +12,8 @@ use yii\bootstrap4\LinkPager as YiiBootstrap4LinkPager;
  */
 class LinkPager extends YiiBootstrap4LinkPager
 {
+    use WidgetTrait;
+
     /**
      * @var null
      */

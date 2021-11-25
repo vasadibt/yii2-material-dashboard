@@ -9,21 +9,25 @@ use yii\helpers\StringHelper;
 echo "<?php\n";
 ?>
 
+use <?= $generator->buttonBackWidgetClass ?>;
 use <?= $generator->cardWidgetClass ?>;
 
 /** @var yii\web\View $this */
 /** @var <?= ltrim($generator->modelClass, '\\') ?> $model */
 
 $this->params['breadcrumbs'][] = ['label' => $model::titleList(), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ($this->title = sprintf(<?= $generator->generateString('New %s create')?>, $model::title()));
-
+<?php if($generator->enableI18N): ?>
+$this->params['breadcrumbs'][] = ($this->title = strtr('New {model} create', ['{model}' => $model::title()]));
+<?php else: ?>
+$this->params['breadcrumbs'][] = ($this->title = Yii::t('<?= $generator->messageCategory ?>', 'New {model} create', ['model' => $model::title()]);
+<?php endif ?>
 
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-create">
     <?= '<?= ' ?><?= StringHelper::basename($generator->cardWidgetClass) ?>::widget([
         'icon' => 'assignment',
         'title' => $this->title,
-        'buttons' => Yii::$app->material->back(),
+        'buttons' => <?= StringHelper::basename($generator->buttonBackWidgetClass) ?>::widget(),
         'body' => $this->render('_form', compact('model'))
     ]) ?>
 </div>

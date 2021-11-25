@@ -11,6 +11,7 @@ echo "<?php\n";
 use <?= $generator->formBuilderClass ?>;
 use <?= $generator->htmlHelperClass ?>;
 use <?= $generator->activeFormClass ?>;
+use <?= $generator->buttonSubmitWidgetClass ?>;
 
 /** @var yii\web\View $this */
 /** @var <?= ltrim($generator->modelClass, '\\') ?> $model */
@@ -27,7 +28,7 @@ use <?= $generator->activeFormClass ?>;
             '<?= $column->name ?>' => ['type' => <?= $generator->generateFormFormat($column) ?>],
 <?php endforeach; ?>
         ],
-        'contentAfter' => Html::tag('div', Yii::$app->material->submit($model), ['class' => 'd-flex justify-content-center']),
+        'contentAfter' => Html::tag('div', <?= StringHelper::basename($generator->buttonSubmitWidgetClass) ?>::widget(['model' => $model]), ['class' => 'd-flex justify-content-center']),
     ]) ?>
     <?= '<?php ' ?><?= StringHelper::basename($generator->activeFormClass) ?>::end() ?>
 </div>

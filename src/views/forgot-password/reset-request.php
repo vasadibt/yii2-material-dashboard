@@ -32,19 +32,15 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
                     'title' => $this->title,
                     'footer' => [
                         Link::widget(['title' => Yii::t('materialdashboard', 'Back to login'), 'url' => ['/auth/user/login']]),
-                        Submit::widget(['icon' => 'send', 'form' => 'reset-password-form']),
+                        Submit::widget(['icon' => 'send', 'title' => Yii::t('materialdashboard', 'Send email'), 'form' => 'forgot-password-form']),
                     ],
                 ]) ?>
-                <?php $form = ActiveForm::begin(['id' => 'reset-password-form']) ?>
+                <?php $form = ActiveForm::begin(['id' => 'forgot-password-form']) ?>
                 <?= $form->errorSummary($model) ?>
-                <?= $form->field($model, 'newPassword', ['addon' => ['prepend' => ['content' => Html::icon('lock')]]])
-                    ->passwordInput(['placeholder' => $model->getAttributeLabel('newPassword'), 'autofocus' => 1])
-                    ->label(false) ?>
-                <?= $form->field($model, 'retypePassword', ['addon' => ['prepend' => ['content' => Html::icon('lock')]]])
-                    ->passwordInput(['placeholder' => $model->getAttributeLabel('retypePassword')])
+                <?= $form->field($model, 'email', ['addon' => ['prepend' => ['content' => Html::icon('email')]]])
+                    ->textInput(['placeholder' => $model->getAttributeLabel('email')])
                     ->label(false) ?>
                 <?php ActiveForm::end() ?>
-
                 <?php Card::end() ?>
             </div>
         </div>

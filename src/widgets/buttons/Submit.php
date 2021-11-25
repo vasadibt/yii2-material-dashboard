@@ -4,25 +4,33 @@ namespace vasadibt\materialdashboard\widgets\buttons;
 
 use Yii;
 use yii\db\ActiveRecordInterface;
+use function Webmozart\Assert\Tests\StaticAnalysis\email;
 
-class Submit extends BaseButton
+class Submit extends Button
 {
+    public $icon = 'save';
+    public $title;
+    protected $_options = [
+        'class' => [
+            'widget' => '{{optionWidget}}',
+            'size' => '{{optionSize}}',
+            'type' => '{{optionType}}',
+            'style' => '{{optionStyle}}',
+            'position' => '{{optionPosition}}'
+        ],
+        'type' => 'submit',
+        'form' => '{{form}}'
+    ];
+    public $optionType = 'btn-success';
+
     /**
      * @var ActiveRecordInterface
      */
     public $model;
     public $createTitle;
     public $updateTitle;
-    public $title;
-    public $icon = 'save';
-    protected $_options = [
-        'type' => 'submit',
-        'class' => [
-            'widget' => 'btn',
-            'size' => 'btn-sm',
-            'type' => 'btn-success',
-        ]
-    ];
+    public $form;
+
 
     public function init()
     {
@@ -33,6 +41,10 @@ class Submit extends BaseButton
             } else {
                 $this->title = $this->updateTitle ?? Yii::t('materialdashboard', 'Save');
             }
+        }
+
+        if (empty($this->form) && isset($this->_options['form']) && $this->_options['form'] == '{{form}}'){
+            unset($this->_options['form']);
         }
     }
 }

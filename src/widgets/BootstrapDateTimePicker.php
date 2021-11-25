@@ -5,7 +5,6 @@ namespace vasadibt\materialdashboard\widgets;
 use vasadibt\materialdashboard\assets\BootstrapDateTimePickerAsset;
 use yii\helpers\Json;
 use yii\web\JsExpression;
-use yii\widgets\InputWidget;
 
 /**
  * Class BootstrapDateTimePicker

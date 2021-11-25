@@ -5,29 +5,32 @@ namespace vasadibt\materialdashboard\widgets\buttons;
 use Yii;
 use yii\db\ActiveRecordInterface;
 
-class Delete extends BaseButton
+class Delete extends Link
 {
-    public $tag = 'a';
+    public $icon = 'delete';
+    public $title;
+    protected $_options = [
+        'class' => [
+            'widget' => '{{optionWidget}}',
+            'size' => '{{optionSize}}',
+            'type' => '{{optionType}}',
+            'style' => '{{optionStyle}}',
+            'position' => '{{optionPosition}}'
+        ],
+        'data' => [
+            'method' => '{{dataMethod}}',
+            'confirm' => '{{dataConfirm}}',
+        ],
+    ];
+    public $optionType = 'btn-danger';
+    public $optionStyle = 'btn-round';
+
     /**
      * @var ActiveRecordInterface
      */
     public $model;
-    public $title;
-    public $icon = 'delete';
-
-    protected $_options = [
-        'class' => [
-            'widget' => 'btn',
-            'size' => 'btn-sm',
-            'type' => 'btn-danger',
-            'style' => 'btn-round',
-            'position' => 'mt-3'
-        ],
-        'data' => [
-            'method' => 'post',
-            'confirm' => null,
-        ],
-    ];
+    public $dataMethod = 'POST';
+    public $dataConfirm;
 
     public function init()
     {
@@ -40,8 +43,8 @@ class Delete extends BaseButton
             $this->title = Yii::t('materialdashboard', 'Delete');
         }
 
-        if (!isset($this->_options['data']['confirm'])) {
-            $this->_options['data']['confirm'] = Yii::t('materialdashboard', 'Are you sure you want to delete this item?');
+        if ($this->dataConfirm === null) {
+            $this->dataConfirm = Yii::t('materialdashboard', 'Are you sure you want to delete this item?');
         }
 
     }

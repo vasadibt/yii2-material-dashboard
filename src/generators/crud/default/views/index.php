@@ -10,6 +10,7 @@ echo "<?php\n";
 ?>
 
 use <?= $generator->gridViewClass ?>;
+use <?= $generator->buttonCreateWidgetClass ?>;
 use <?= $generator->cardWidgetClass ?>;
 
 /** @var yii\web\View $this */
@@ -22,10 +23,12 @@ $this->params['breadcrumbs'][] = ($this->title = $searchModel::titleList());
     <?= '<?= ' ?><?= StringHelper::basename($generator->cardWidgetClass) ?>::widget([
         'icon' => 'assignment',
         'title' => $this->title,
-        'buttons' => Yii::$app->material->create($searchModel),
+        'buttons' => <?= StringHelper::basename($generator->buttonCreateWidgetClass) ?>::widget(['searchModel' => $searchModel]),
         'body' => <?= StringHelper::basename($generator->gridViewClass) ?>::widget([
             'filterModel' => $searchModel,
             'columns' => [
+                //['class' => 'vasadibt\materialdashboard\grid\CheckboxColumn'],
+                //['class' => 'vasadibt\materialdashboard\grid\SerialColumn'],
                 ['class' => 'vasadibt\materialdashboard\grid\ActionColumn'],
 <?php foreach ($generator->getTableSchema()->columns as $column): ?>
 <?php if($column->isPrimaryKey || in_array($column->name, $generator->skipGridFields)) continue; ?>

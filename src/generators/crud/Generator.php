@@ -34,6 +34,12 @@ class Generator extends GiiCrudGenerator
     public $cardWidgetClass = 'vasadibt\materialdashboard\widgets\Card';
 
 
+    public $buttonDeleteWidgetClass = 'vasadibt\materialdashboard\widgets\buttons\Delete';
+    public $buttonBackWidgetClass = 'vasadibt\materialdashboard\widgets\buttons\Back';
+    public $buttonSubmitWidgetClass = 'vasadibt\materialdashboard\widgets\buttons\Submit';
+    public $buttonCreateWidgetClass = 'vasadibt\materialdashboard\widgets\buttons\Create';
+
+
     public $searchModelInterface = 'vasadibt\materialdashboard\interfaces\SearchModelInterface';
     public $searchModelTrait = 'vasadibt\materialdashboard\traits\SearchModelTrait';
     public $spreadsheetBuilder = 'yii2tech\spreadsheet\Spreadsheet';

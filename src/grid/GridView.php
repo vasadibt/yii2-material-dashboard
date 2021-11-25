@@ -10,6 +10,8 @@ namespace vasadibt\materialdashboard\grid;
 
 use vasadibt\materialdashboard\helpers\Html;
 use vasadibt\materialdashboard\interfaces\SearchModelInterface;
+use vasadibt\materialdashboard\widgets\buttons\Export;
+use vasadibt\materialdashboard\widgets\buttons\Reset;
 use Yii;
 use yii\data\DataProviderInterface;
 
@@ -74,8 +76,7 @@ class GridView extends \kartik\grid\GridView
             $this->toolbar = [
                 [
                     'options' => ['class' => 'd-flex justify-content-end'],
-                    'content' => Yii::$app->material->export()
-                        . Yii::$app->material->reset($this->filterModel)
+                    'content' => Export::widget() . Reset::widget(['filterModel' => $this->filterModel]),
                 ],
             ];
         }

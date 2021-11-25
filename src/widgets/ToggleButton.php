@@ -12,6 +12,8 @@ use yii\widgets\InputWidget;
  */
 class ToggleButton extends InputWidget
 {
+    use WidgetTrait;
+
     /**
      * {@inheritDoc}
      * @return string

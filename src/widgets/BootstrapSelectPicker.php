@@ -4,10 +4,8 @@ namespace vasadibt\materialdashboard\widgets;
 
 use vasadibt\materialdashboard\assets\BootstrapSelectPickerAsset;
 use vasadibt\materialdashboard\helpers\Html;
-use Yii;
 use yii\helpers\Json;
 use yii\web\JsExpression;
-use yii\widgets\InputWidget;
 
 /**
  * Class BootstrapSelectPicker

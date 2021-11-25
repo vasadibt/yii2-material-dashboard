@@ -2,6 +2,10 @@
 
 use vasadibt\materialdashboard\helpers\Html;
 use vasadibt\materialdashboard\widgets\ActiveForm;
+use vasadibt\materialdashboard\widgets\buttons\Button;
+use vasadibt\materialdashboard\widgets\buttons\Link;
+use vasadibt\materialdashboard\widgets\buttons\Submit;
+use vasadibt\materialdashboard\widgets\Card;
 
 /** @var yii\web\View $this */
 /** @var yii\bootstrap\ActiveForm $form */
@@ -24,39 +28,35 @@ $bundle = Yii::$app->assetManager->getBundle(\vasadibt\materialdashboard\assets\
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
-                <div class="card card-login card-hidden">
-                    <div class="card-header card-header-info text-center">
-                        <h4 class="card-title"><?= Html::encode($this->title) ?></h4>
-                    </div>
-                    <div class="card-body">
-                        <?php $form = ActiveForm::begin(['id' => 'login-form']) ?>
+                <?php Card::begin([
+                    'containerOptions' => ['class' => ['type' => 'card-login', 'visibility' => 'card-hidden']],
+                    'headerOptions' => ['class' => ['type' => 'card-header-info', 'text' => 'text-center']],
+                    'title' => $this->title,
+                    'footer' => [
+                        Link::widget([
+                            'title' => Yii::t('materialdashboard', 'Forgot your password?'),
+                            'url' => ['/auth/forgot-password/reset-request'],
+                            'options' => ['tabindex' => '-1', 'class' => ['id' => 'forgot-pass-btn']],
+                            'optionType' => 'btn-link',
+                        ]),
+                        Submit::widget(['icon' => 'login', 'title' => Yii::t('materialdashboard', 'Sign in'), 'form' => 'login-form']),
+                    ],
+                ]) ?>
+                <?php $form = ActiveForm::begin(['id' => 'login-form']) ?>
 
-                        <?= $form->errorSummary($model)?>
+                <?= $form->errorSummary($model) ?>
 
-                        <?= $form->field($model, 'email')
-                            ->textInput(['placeholder' => $model->getAttributeLabel('email'), 'autofocus' => 1])
-                            ->prepend(['content' => '<i class="material-icons">email</i>'])
-                            ->label(false) ?>
+                <?= $form->field($model, 'email', ['addon' => ['prepend' => ['content' => Html::icon('email')]]])
+                    ->textInput(['placeholder' => $model->getAttributeLabel('email'), 'autofocus' => 1])
+                    ->label(false) ?>
 
-                        <?= $form->field($model, 'password')
-                            ->passwordInput(['placeholder' => $model->getAttributeLabel('password')])
-                            ->prepend(['content' => '<i class="material-icons">lock</i>'])
-                            ->label(false) ?>
+                <?= $form->field($model, 'password', ['addon' => ['prepend' => ['content' => Html::icon('lock')]]])
+                    ->passwordInput(['placeholder' => $model->getAttributeLabel('password')])
+                    ->label(false) ?>
 
-                        <div class="text-center py-1">
-                            <?= Html::a(Yii::t('materialdashboard', 'Forgot your password?'), ['/auth/forgot-password/reset-request'], [
-                                'class' => 'btn-link',
-                                'tabindex' => '-1',
-                            ]) ?>
-                        </div>
+                <?php ActiveForm::end() ?>
+                <?php Card::end() ?>
 
-                        <div class="my-3 text-center">
-                            <?= Html::submitButton(Yii::t('materialdashboard', 'Sign in'), ['class' => 'btn btn-info btn-sm btn-round']) ?>
-                        </div>
-
-                        <?php ActiveForm::end() ?>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

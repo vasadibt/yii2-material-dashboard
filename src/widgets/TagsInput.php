@@ -15,6 +15,8 @@ use yii\widgets\InputWidget;
  */
 class TagsInput extends InputWidget
 {
+    use WidgetTrait;
+
     const DEFAULT = 'default';
     const PRIMARY = 'primary';
     const INFO = 'info';

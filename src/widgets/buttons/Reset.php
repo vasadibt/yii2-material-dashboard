@@ -5,22 +5,16 @@ namespace vasadibt\materialdashboard\widgets\buttons;
 use Yii;
 use yii\base\Model;
 
-class Reset extends BaseButton
+class Reset extends Link
 {
-    public $tag = 'a';
+    public $icon = 'zoom_out';
+    public $title;
+    public $optionType = 'btn-warning';
+
     /**
      * @var Model
      */
     public $filterModel;
-    public $title;
-    public $icon = 'zoom_out';
-    protected $_options = [
-        'class' => [
-            'widget' => 'btn',
-            'size' => 'btn-sm',
-            'type' => 'btn-warning',
-        ]
-    ];
 
     public function init()
     {

@@ -7,24 +7,17 @@ use Yii;
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 
-class Create extends BaseButton
+class Create extends Link
 {
-    public $tag = 'a';
+    public $icon = 'add';
+    public $title;
+    public $optionType = 'btn-success';
+
     /**
      * @var object
      */
     public $model;
-    public $title;
-    public $icon = 'add';
     public $modelTitle;
-
-    protected $_options = [
-        'class' => [
-            'widget' => 'btn',
-            'size' => 'btn-sm',
-            'type' => 'btn-success'
-        ],
-    ];
 
     public function init()
     {

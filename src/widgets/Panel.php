@@ -8,8 +8,11 @@ use yii\bootstrap4\Nav;
 use yii\bootstrap4\Tabs;
 use yii\helpers\ArrayHelper;
 
+
 class Panel extends Tabs
 {
+    use WidgetTrait;
+
     const TYPE_HORIZONTAL = 'horizontal';
     const TYPE_VERTICAL = 'vertical';
 

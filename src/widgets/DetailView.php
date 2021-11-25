@@ -8,4 +8,5 @@ namespace vasadibt\materialdashboard\widgets;
  */
 class DetailView extends \yii\widgets\DetailView
 {
+    use WidgetTrait;
 }

@@ -4,18 +4,11 @@ namespace vasadibt\materialdashboard\widgets\buttons;
 
 use Yii;
 
-class Export extends BaseButton
+class Export extends Link
 {
-    public $tag = 'a';
-    public $title;
     public $icon = 'file_download';
-    protected $_options = [
-        'class' => [
-            'widget' => 'btn',
-            'size' => 'btn-sm',
-            'type' => 'btn-info',
-        ],
-    ];
+    public $title;
+    public $optionType = 'btn-info';
 
     public function init()
     {

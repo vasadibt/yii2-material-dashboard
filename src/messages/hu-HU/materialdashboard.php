@@ -35,6 +35,7 @@ return [
     'Locked account' => 'Lezárt fiók',
     'Log out' => 'Kilépés',
     'Login' => 'Belépés',
+    'More' => 'Bővebben',
     'New {model} create' => 'Új {model}',
     'New {{modelTitle}}' => 'Új {{modelTitle}}',
     'Next' => 'Következő',
@@ -53,5 +54,5 @@ return [
     'You have successfully removed the item!' => 'You have successfully removed the item!',
     'item' => 'tétel',
     '{model} edit' => '{model} szerkesztése',
-    'More' => 'Bővebben',
+    'Add' => 'Létrehozás',
 ];

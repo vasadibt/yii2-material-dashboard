@@ -10,6 +10,8 @@ use yii\helpers\Url;
 /**
  * @property array $options
  * @property string $url
+ * @property string $tooltip
+ * @property string $pjax
  */
 class Button extends BaseWidget
 {
@@ -137,6 +139,15 @@ class Button extends BaseWidget
     }
 
     /**
+     * @param $name
+     * @param $value
+     */
+    public function setData($name, $value)
+    {
+        $this->setOption('data-' . $name, $value);
+    }
+
+    /**
      * @param null $attribute
      * @return mixed
      */
@@ -160,6 +171,27 @@ class Button extends BaseWidget
     public function setSpinner($spinner)
     {
         $this->spinner = is_bool($spinner) ? ($spinner ? static::SPINNER_TEMPLATE : '') : $spinner;
+    }
+
+    /**
+     * @param string $tooltip
+     */
+    public function setTooltip($tooltip)
+    {
+        if ($tooltip === false || $tooltip === '') {
+            unset($this->_options['rel']);
+            unset($this->_options['title']);
+            unset($this->_options['data-original-title']);
+        } else {
+            $this->_options['rel'] = 'tooltip';
+            $this->_options['title'] = $tooltip === true ? '{{title}}' : $tooltip;
+            $this->_options['data-original-title'] = $this->_options['title'];
+        }
+    }
+
+    public function setPjax($pjax)
+    {
+        $this->setData('pjax', $pjax);
     }
 
     /**

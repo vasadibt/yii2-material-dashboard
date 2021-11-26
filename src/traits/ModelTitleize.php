@@ -7,15 +7,15 @@ use yii\helpers\StringHelper;
 
 trait ModelTitleize
 {
-    public static $title;
-    public static $titleList;
+    public static $_title;
+    public static $_titleList;
 
     /**
      * @return string
      */
     public static function title()
     {
-        return static::$title ?? Inflector::titleize(Inflector::camel2words(StringHelper::basename(static::class)));
+        return static::$_title ?? Inflector::titleize(Inflector::camel2words(StringHelper::basename(static::class)));
     }
 
     /**
@@ -23,6 +23,6 @@ trait ModelTitleize
      */
     public static function titleList()
     {
-        return static::$titleList ?? static::title() . ' list';
+        return static::$_titleList ?? static::title() . ' list';
     }
 }

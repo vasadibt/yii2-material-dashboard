@@ -45,20 +45,14 @@ class <?= $searchModelClass ?> extends <?= $modelClass ?> implements <?= StringH
     }
 
     /**
-     * @param QueryInterface $query
-     * @return <?= StringHelper::basename($generator->searchModelInterface) . "\n" ?>
+     * @return array List of auto filters
      */
-    public function filterQuery(QueryInterface $query): <?= StringHelper::basename($generator->searchModelInterface) . "\n" ?>
+    public function autoFilters()
     {
-        $query->andFilterWhere(['AND',
-<?php foreach($generator->getSearchConditions() as $column => $type): ?>
-<?php if ($type == $generator::SIMPLE): ?>
-            ['=', '<?= $generator->getTableSchema()->name ?>.<?= $column ?>', $this-><?= $column ?>],
-<?php else: ?>
-            ['<?= $type ?>', '<?= $generator->getTableSchema()->name ?>.<?= $column ?>', $this-><?= $column ?>],
-<?php endif; ?>
+        return [
+<?php foreach ($generator->getAutoFilters() as $type => $attributeNames): ?>
+            '<?= $type ?>' => ['<?= join("', '", $attributeNames)?>'],
 <?php endforeach ?>
-        ]);
-        return $this;
+        ];
     }
 }

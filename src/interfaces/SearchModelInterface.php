@@ -9,6 +9,9 @@ use yii\web\Request;
 /**
  * Interface SearchModelInterface
  * @package vasadibt\materialdashboard\interfaces
+ *
+ * @method self filterQuery(QueryInterface $query)  / optional
+ * @method array autoFilters()                      / optional
  */
 interface SearchModelInterface
 {
@@ -23,9 +26,5 @@ interface SearchModelInterface
      */
     public function getDataProvider(): DataProviderInterface;
 
-    /**
-     * @param QueryInterface $query
-     * @return $this
-     */
-    public function filterQuery(QueryInterface $query): self;
+
 }

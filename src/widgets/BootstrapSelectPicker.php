@@ -31,27 +31,18 @@ class BootstrapSelectPicker extends InputWidget
     public $pluginEvents = [];
 
     /**
-     * @return void
-     * @throws \yii\base\InvalidConfigException
+     * {@inheritDoc}
+     * @return string
      */
-    public function init()
+    public function run()
     {
-        parent::init();
-
         Html::addCssClass($this->options, 'selectpicker');
         $this->options['prompt'] = $this->prompt;
         $this->options['data-style'] = $this->dataStyle;
         $this->options['multiple'] = $this->multiple;
         $this->pluginOptions = (array)$this->pluginOptions;
         $this->registerAssets();
-    }
 
-    /**
-     * {@inheritDoc}
-     * @return string
-     */
-    public function run()
-    {
         return $this->hasModel()
             ? Html::activeDropDownList($this->model, $this->attribute, $this->items, $this->options)
             : Html::dropDownList($this->name, $this->value, $this->items, $this->options);

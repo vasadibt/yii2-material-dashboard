@@ -2,15 +2,11 @@
 
 namespace vasadibt\materialdashboard\grid;
 
-use vasadibt\materialdashboard\widgets\BootstrapSelectPicker;
+use vasadibt\materialdashboard\widgets\BooleanPickerPromted;
 
 class BooleanColumn extends DataColumn
 {
-    public $filterType = BootstrapSelectPicker::class;
-    public $filterWidgetOptions = [
-        'prompt' => 'Mind',
-        'items' => ['1' => 'Igen', '2' => 'Nem'],
-    ];
+    public $filterType = BooleanPickerPromted::class;
     public $format = 'boolean';
     public $hAlign = 'center';
 }

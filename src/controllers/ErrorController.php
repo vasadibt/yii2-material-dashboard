@@ -11,17 +11,9 @@ use yii\web\Controller;
  * Class ErrorController
  * @package vasadibt\materialdashboard\controllers
  */
-class ErrorController extends Controller
+class ErrorController extends BaseController
 {
-    /**
-     * @inheritdoc
-     */
-    public function actions()
-    {
-        return [
-            'index' => [
-                'class' => ErrorAction::class,
-            ],
-        ];
-    }
+    public $actions = [
+        'index' =>  ErrorAction::class,
+    ];
 }

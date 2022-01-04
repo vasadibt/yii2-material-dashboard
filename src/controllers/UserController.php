@@ -18,25 +18,14 @@ use yii\web\Response;
 /**
  * UserController implements the CRUD actions for User model.
  */
-class UserController extends Controller
+class UserController extends BaseController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'index' => ['GET'],
-                    'create' => ['GET', 'POST'],
-                    'update' => ['GET', 'POST'],
-                    'delete' => ['GET'],
-                ],
-            ],
-        ];
-    }
+    public $verbs = [
+        'index' => ['GET'],
+        'create' => ['GET', 'POST'],
+        'update' => ['GET', 'POST'],
+        'delete' => ['GET'],
+    ];
 
     /**
      * Lists all User models.

@@ -7,18 +7,29 @@ use vasadibt\materialdashboard\models\ChangePasswordForm;
 use vasadibt\materialdashboard\models\ProfileForm;
 use Yii;
 use yii\web\Controller;
+use yii\web\Request;
 
 /**
  * Class ProfileController
  * @package vasadibt\materialdashboard\controllers
  */
-class ProfileController extends Controller
+class ProfileController extends BaseController
 {
-    public function actionIndex()
+    public $profileForm = ProfileForm::class;
+    public $changePasswordForm = ChangePasswordForm::class;
+
+    /**
+     * @param Request $request
+     * @return string|\yii\web\Response
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function actionIndex(Request $request)
     {
-        $request = Yii::$app->request;
-        $profile = new ProfileForm();
-        $changePassword = new ChangePasswordForm();
+        /** @var ProfileForm $profile */
+        /** @var ChangePasswordForm $changePassword */
+
+        $profile = Yii::createObject($this->profileForm);
+        $changePassword = Yii::createObject($this->changePasswordForm);
 
         if ($request->isPost) {
             if ($profile->load($request->post())) {

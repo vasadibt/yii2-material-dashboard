@@ -8,65 +8,54 @@
 
 namespace vasadibt\materialdashboard\controllers;
 
-
 use vasadibt\materialdashboard\models\LoginForm;
 use Yii;
-use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
-use yii\web\Controller;
+use yii\web\Request;
+
 
 /**
  * Class SignInController
  * @package vasadibt\materialdashboard\controllers
  */
-class SignInController extends Controller
+class SignInController extends BaseController
 {
     /**
      * @var string
      */
     public $defaultAction = 'login';
 
-    /**
-     * @return array
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post']
-                ]
-            ],
-            'access' => [
-                'class' => AccessControl::class,
-                'rules' => [
-                    [
-                        'actions' => ['login'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout'],
-                        'roles' => ['@'],
-                        'allow' => true,
-                    ],
-                ],
-            ],
-        ];
-    }
+    public $verbs = [
+        'logout' => ['post']
+    ];
+
+    public $access = [
+        [
+            'actions' => ['login'],
+            'allow' => true,
+        ],
+        [
+            'actions' => ['logout'],
+            'roles' => ['@'],
+            'allow' => true,
+        ]
+    ];
+
+    public $form = LoginForm::class;
 
     /**
      * @return string|\yii\web\Response
+     * @throws \yii\base\InvalidConfigException
      */
-    public function actionLogin()
+    public function actionLogin(Request $request)
     {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
-        $model = new LoginForm();
+        /** @var LoginForm $model */
+        $model = Yii::createObject($this->form);
 
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load($request->post()) && $model->login()) {
             return $this->goHome();
         }
 
@@ -83,6 +72,4 @@ class SignInController extends Controller
         Yii::$app->user->logout();
         return $this->goHome();
     }
-
-
 }

@@ -2,9 +2,9 @@
 
 namespace vasadibt\materialdashboard\controllers;
 
-use yii\console\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\Controller;
 
 abstract class BaseController extends Controller
 {

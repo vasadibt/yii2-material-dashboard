@@ -22,7 +22,7 @@ class LoginForm extends Model
     /**
      * @var ExtendedIdentityInterface|bool
      */
-    private $user = false;
+    protected $user = false;
 
     /**
      * @inheritdoc
